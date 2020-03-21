@@ -3,6 +3,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
+    "downlevelIteration": true,
     "lib": ["esnext", "dom"],
     "esModuleInterop": true
   }
