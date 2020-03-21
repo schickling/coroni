@@ -1,17 +1,18 @@
 {
   "name": "coroni-backend",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-bot": "ts-node src/bot.ts",
+    "generate": "prisma2 generate"
   },
-  "keywords": [
-    "wirvsvirus"
-  ],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "prisma2": "^2.0.0-preview024"
+    "@prisma/client": "^2.0.0-preview024",
+    "prisma2": "^2.0.0-preview024",
+    "telegraf": "^3.36.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.7.0",
+    "typescript": "^3.8.3"
   }
 }
