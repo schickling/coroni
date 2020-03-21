@@ -1,0 +1,17 @@
+{
+  "name": "coroni-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wirvsvirus"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prisma2": "^2.0.0-preview024"
+  }
+}
