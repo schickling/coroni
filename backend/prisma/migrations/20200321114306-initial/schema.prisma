@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -22,7 +22,7 @@ model User {
 }
 
 model Event {
-  id         Int       @id
+  int         Int       @id
   user        User      @relation("UserEvents")
   timestamp   DateTime
   eventType   EventType
