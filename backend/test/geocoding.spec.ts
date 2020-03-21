@@ -12,7 +12,8 @@ describe('Geocoding and case lookiup', () => {
 
     expect(region).not.toBeNull()
     if(region !== null) {
-      expect(region.name).toBe('Weilheim-Schongau')
+      expect(region.state).toBe('Bayern')
+      expect(region.region).toBe('Weilheim-Schongau')
       expect(region.cases.cases).toBe(48)
       expect(region.cases.casesPerThousand).toBe(0.355)
     }

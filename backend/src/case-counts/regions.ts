@@ -11,7 +11,7 @@ export function identifyRegion(geoInfo: GeoCodeResult) {
 
   if(state) {
     const [region] = candidates
-      .map(cand => ({ name: cand, cases: state.region[cand] || null }))
+      .map(cand => ({ state: state.name, region: cand, cases: state.region[cand] || null }))
       .filter(x => x.cases !== null)
 
     if(region) {
@@ -21,7 +21,7 @@ export function identifyRegion(geoInfo: GeoCodeResult) {
       // Fallback to country level.
       const stateCases = CaseCounts.find("Deutschland", state.name)
       if(stateCases !== null) {
-        return { name: 'Deutschland', cases: stateCases }
+        return { state: 'Deutschland', region: state.name, cases: stateCases }
       }
     }
   }

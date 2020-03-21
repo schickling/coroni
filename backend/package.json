@@ -9,9 +9,13 @@
   "dependencies": {
     "@prisma/client": "^2.0.0-preview024",
     "@types/jest": "^25.1.4",
+    "@types/lodash": "^4.14.149",
+    "@types/moment": "^2.13.0",
     "@types/node": "^13.9.2",
     "axios": "^0.19.2",
     "jest": "^25.1.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "prisma2": "^2.0.0-preview024",
     "telegraf": "^3.36.0",
     "ts-jest": "^25.2.1"
