@@ -30,10 +30,11 @@ for card in cards:
     for row in rows:
         cols = row.findAll("td")
         # ignore table header (th)
-        if len(cols) > 2:
+        if len(cols) >= 3:
             region = cols[0].getText()
             casesPerThousand = float(cols[1].getText()) / 100
-            regionData[region] = casesPerThousand
+            cases = float(cols[2].getText())
+            regionData[region] = { "cases": cases, "casesPerThousand": casesPerThousand }
 
     data[state] = regionData
 

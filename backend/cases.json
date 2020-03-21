@@ -1,453 +1,1704 @@
 {
  "Deutschland": {
-  "Nordrhein-Westfalen": 0.377,
-  "Baden-W\u00fcrttemberg": 0.39299999999999996,
-  "Bayern": 0.27399999999999997,
-  "Niedersachsen": 0.158,
-  "Hessen": 0.172,
-  "Rheinland-Pfalz": 0.23,
-  "Berlin": 0.23800000000000002,
-  "Hamburg": 0.361,
-  "Sachsen": 0.139,
-  "Schleswig-Holstein": 0.132,
-  "Brandenburg": 0.115,
-  "Th\u00fcringen": 0.11900000000000001,
-  "Saarland": 0.257,
-  "Sachsen-Anhalt": 0.098,
-  "Mecklenburg-Vorpommern": 0.10400000000000001,
-  "Bremen": 0.20800000000000002,
-  "Summe": 0.2623
+  "Nordrhein-Westfalen": {
+   "cases": 6754.0,
+   "casesPerThousand": 0.377
+  },
+  "Baden-W\u00fcrttemberg": {
+   "cases": 4348.0,
+   "casesPerThousand": 0.39299999999999996
+  },
+  "Bayern": {
+   "cases": 3587.0,
+   "casesPerThousand": 0.27399999999999997
+  },
+  "Niedersachsen": {
+   "cases": 1262.0,
+   "casesPerThousand": 0.158
+  },
+  "Hessen": {
+   "cases": 1080.0,
+   "casesPerThousand": 0.172
+  },
+  "Rheinland-Pfalz": {
+   "cases": 938.0,
+   "casesPerThousand": 0.23
+  },
+  "Berlin": {
+   "cases": 868.0,
+   "casesPerThousand": 0.23800000000000002
+  },
+  "Hamburg": {
+   "cases": 664.0,
+   "casesPerThousand": 0.361
+  },
+  "Sachsen": {
+   "cases": 567.0,
+   "casesPerThousand": 0.139
+  },
+  "Schleswig-Holstein": {
+   "cases": 383.0,
+   "casesPerThousand": 0.132
+  },
+  "Brandenburg": {
+   "cases": 293.0,
+   "casesPerThousand": 0.11699999999999999
+  },
+  "Th\u00fcringen": {
+   "cases": 265.0,
+   "casesPerThousand": 0.124
+  },
+  "Saarland": {
+   "cases": 255.0,
+   "casesPerThousand": 0.257
+  },
+  "Sachsen-Anhalt": {
+   "cases": 217.0,
+   "casesPerThousand": 0.098
+  },
+  "Mecklenburg-Vorpommern": {
+   "cases": 167.0,
+   "casesPerThousand": 0.10400000000000001
+  },
+  "Bremen": {
+   "cases": 142.0,
+   "casesPerThousand": 0.20800000000000002
+  },
+  "Summe": {
+   "cases": 21790.0,
+   "casesPerThousand": 0.2625
+  }
  },
  "Nordrhein-Westfalen": {
-  "Heinsberg": 3.602,
-  "K\u00f6ln": 0.579,
-  "St\u00e4dteregion Aachen": 0.785,
-  "Borken": 0.68,
-  "Rhein-Sieg-Kreis": 0.413,
-  "M\u00fcnster": 0.6970000000000001,
-  "D\u00fcsseldorf": 0.305,
-  "Steinfurt": 0.42,
-  "Warendorf": 0.67,
-  "G\u00fctersloh": 0.49200000000000005,
-  "Essen": 0.281,
-  "Rhein-Erft-Kreis": 0.32799999999999996,
-  "Dortmund": 0.23800000000000002,
-  "Minden-L\u00fcbbecke": 0.451,
-  "Lippe": 0.382,
-  "Wesel": 0.287,
-  "Coesfeld": 0.5870000000000001,
-  "Recklinghausen": 0.20600000000000002,
-  "Viersen": 0.41100000000000003,
-  "Bonn": 0.364,
-  "D\u00fcren": 0.447,
-  "Mettmann": 0.233,
-  "Hochsauerlandkreis": 0.418,
-  "Kleve": 0.35100000000000003,
-  "Rhein-Kreis Neuss": 0.213,
-  "Duisburg": 0.179,
-  "Herford": 0.33899999999999997,
-  "Rheinisch-Bergischer Kreis": 0.28600000000000003,
-  "M\u00f6nchengladbach": 0.295,
-  "Bochum": 0.21100000000000002,
-  "Paderborn": 0.244,
-  "Wuppertal": 0.209,
-  "Krefeld": 0.313,
-  "Oberbergischer Kreis": 0.261,
-  "Bielefeld": 0.198,
-  "Unna": 0.152,
-  "Soest": 0.18899999999999997,
-  "Hamm": 0.301,
-  "Ennepe-Ruhr-Kreis": 0.139,
-  "Leverkusen": 0.275,
-  "Euskirchen": 0.233,
-  "Gelsenkirchen": 0.157,
-  "M\u00e4rkischer Kreis": 0.092,
-  "Solingen": 0.23800000000000002,
-  "M\u00fclheim an der Ruhr": 0.21100000000000002,
-  "Oberhausen": 0.166,
-  "Hagen": 0.16399999999999998,
-  "Siegen-Wittgenstein": 0.10400000000000001,
-  "Remscheid": 0.18899999999999997,
-  "Olpe": 0.126,
-  "Herne": 0.102,
-  "H\u00f6xter": 0.114,
-  "Bottrop": 0.136
+  "Heinsberg": {
+   "cases": 916.0,
+   "casesPerThousand": 3.602
+  },
+  "K\u00f6ln": {
+   "cases": 629.0,
+   "casesPerThousand": 0.579
+  },
+  "St\u00e4dteregion Aachen": {
+   "cases": 436.0,
+   "casesPerThousand": 0.785
+  },
+  "Borken": {
+   "cases": 252.0,
+   "casesPerThousand": 0.68
+  },
+  "Rhein-Sieg-Kreis": {
+   "cases": 248.0,
+   "casesPerThousand": 0.413
+  },
+  "M\u00fcnster": {
+   "cases": 219.0,
+   "casesPerThousand": 0.6970000000000001
+  },
+  "D\u00fcsseldorf": {
+   "cases": 189.0,
+   "casesPerThousand": 0.305
+  },
+  "Steinfurt": {
+   "cases": 188.0,
+   "casesPerThousand": 0.42
+  },
+  "Warendorf": {
+   "cases": 186.0,
+   "casesPerThousand": 0.67
+  },
+  "G\u00fctersloh": {
+   "cases": 179.0,
+   "casesPerThousand": 0.49200000000000005
+  },
+  "Essen": {
+   "cases": 164.0,
+   "casesPerThousand": 0.281
+  },
+  "Rhein-Erft-Kreis": {
+   "cases": 154.0,
+   "casesPerThousand": 0.32799999999999996
+  },
+  "Dortmund": {
+   "cases": 140.0,
+   "casesPerThousand": 0.23800000000000002
+  },
+  "Minden-L\u00fcbbecke": {
+   "cases": 140.0,
+   "casesPerThousand": 0.451
+  },
+  "Lippe": {
+   "cases": 133.0,
+   "casesPerThousand": 0.382
+  },
+  "Wesel": {
+   "cases": 132.0,
+   "casesPerThousand": 0.287
+  },
+  "Coesfeld": {
+   "cases": 129.0,
+   "casesPerThousand": 0.5870000000000001
+  },
+  "Recklinghausen": {
+   "cases": 127.0,
+   "casesPerThousand": 0.20600000000000002
+  },
+  "Viersen": {
+   "cases": 123.0,
+   "casesPerThousand": 0.41100000000000003
+  },
+  "Bonn": {
+   "cases": 119.0,
+   "casesPerThousand": 0.364
+  },
+  "D\u00fcren": {
+   "cases": 118.0,
+   "casesPerThousand": 0.447
+  },
+  "Mettmann": {
+   "cases": 113.0,
+   "casesPerThousand": 0.233
+  },
+  "Hochsauerlandkreis": {
+   "cases": 109.0,
+   "casesPerThousand": 0.418
+  },
+  "Kleve": {
+   "cases": 109.0,
+   "casesPerThousand": 0.35100000000000003
+  },
+  "Rhein-Kreis Neuss": {
+   "cases": 96.0,
+   "casesPerThousand": 0.213
+  },
+  "Duisburg": {
+   "cases": 89.0,
+   "casesPerThousand": 0.179
+  },
+  "Herford": {
+   "cases": 85.0,
+   "casesPerThousand": 0.33899999999999997
+  },
+  "Rheinisch-Bergischer Kreis": {
+   "cases": 81.0,
+   "casesPerThousand": 0.28600000000000003
+  },
+  "M\u00f6nchengladbach": {
+   "cases": 77.0,
+   "casesPerThousand": 0.295
+  },
+  "Bochum": {
+   "cases": 77.0,
+   "casesPerThousand": 0.21100000000000002
+  },
+  "Paderborn": {
+   "cases": 75.0,
+   "casesPerThousand": 0.244
+  },
+  "Wuppertal": {
+   "cases": 74.0,
+   "casesPerThousand": 0.209
+  },
+  "Krefeld": {
+   "cases": 71.0,
+   "casesPerThousand": 0.313
+  },
+  "Oberbergischer Kreis": {
+   "cases": 71.0,
+   "casesPerThousand": 0.261
+  },
+  "Bielefeld": {
+   "cases": 66.0,
+   "casesPerThousand": 0.198
+  },
+  "Unna": {
+   "cases": 60.0,
+   "casesPerThousand": 0.152
+  },
+  "Soest": {
+   "cases": 57.0,
+   "casesPerThousand": 0.18899999999999997
+  },
+  "Hamm": {
+   "cases": 54.0,
+   "casesPerThousand": 0.301
+  },
+  "Ennepe-Ruhr-Kreis": {
+   "cases": 45.0,
+   "casesPerThousand": 0.139
+  },
+  "Leverkusen": {
+   "cases": 45.0,
+   "casesPerThousand": 0.275
+  },
+  "Euskirchen": {
+   "cases": 45.0,
+   "casesPerThousand": 0.233
+  },
+  "Gelsenkirchen": {
+   "cases": 41.0,
+   "casesPerThousand": 0.157
+  },
+  "M\u00e4rkischer Kreis": {
+   "cases": 38.0,
+   "casesPerThousand": 0.092
+  },
+  "Solingen": {
+   "cases": 38.0,
+   "casesPerThousand": 0.23800000000000002
+  },
+  "M\u00fclheim an der Ruhr": {
+   "cases": 36.0,
+   "casesPerThousand": 0.21100000000000002
+  },
+  "Oberhausen": {
+   "cases": 35.0,
+   "casesPerThousand": 0.166
+  },
+  "Hagen": {
+   "cases": 31.0,
+   "casesPerThousand": 0.16399999999999998
+  },
+  "Siegen-Wittgenstein": {
+   "cases": 29.0,
+   "casesPerThousand": 0.10400000000000001
+  },
+  "Remscheid": {
+   "cases": 21.0,
+   "casesPerThousand": 0.18899999999999997
+  },
+  "Olpe": {
+   "cases": 17.0,
+   "casesPerThousand": 0.126
+  },
+  "Herne": {
+   "cases": 16.0,
+   "casesPerThousand": 0.102
+  },
+  "H\u00f6xter": {
+   "cases": 16.0,
+   "casesPerThousand": 0.114
+  },
+  "Bottrop": {
+   "cases": 16.0,
+   "casesPerThousand": 0.136
+  }
  },
  "Baden-W\u00fcrttemberg": {
-  "Stuttgart": 0.537,
-  "Kreis Esslingen": 0.605,
-  "Rhein-Neckar-Kreis": 0.39299999999999996,
-  "Hohenlohekreis": 1.625,
-  "Freiburg": 0.7859999999999999,
-  "Kreis Ludwigsburg": 0.322,
-  "Breisgau-Hochschwarzwald": 0.609,
-  "Kreis Karlsruhe": 0.34,
-  "Ostalbkreis": 0.439,
-  "Landkreis Heilbronn": 0.39399999999999996,
-  "Kreis B\u00f6blingen": 0.319,
-  "Kreis T\u00fcbingen": 0.55,
-  "Heilbronn": 0.937,
-  "Rems-Murr-Kreis": 0.275,
-  "Kreis Calw": 0.713,
-  "Kreis Emmendingen": 0.665,
-  "Kreis G\u00f6ppingen": 0.428,
-  "Kreis Ravensburg": 0.387,
-  "Alb-Donau-Kreis": 0.546,
-  "Kreis Rastatt": 0.45,
-  "Mannheim": 0.33,
-  "Kreis Schw\u00e4bisch Hall": 0.5,
-  "Karlsruhe": 0.307,
-  "Reutlingen": 0.32799999999999996,
-  "Bodenseekreis": 0.32799999999999996,
-  "Ortenaukreis": 0.165,
-  "Zollernalbkreis": 0.37,
-  "Kreis Sigmaringen": 0.512,
-  "Heidelberg": 0.355,
-  "Kreis L\u00f6rrach": 0.249,
-  "Kreis Biberach": 0.275,
-  "Kreis Konstanz": 0.182,
-  "Kreis Heidenheim": 0.377,
-  "Ulm": 0.396,
-  "Schwarzwald-Baar-Kreis": 0.184,
-  "Main-Tauber-Kreis": 0.272,
-  "Enzkreis": 0.151,
-  "Neckar-Odenwald-Kreis": 0.18100000000000002,
-  "Baden-Baden": 0.381,
-  "Pforzheim": 0.151,
-  "Kreis Freudenstadt": 0.136,
-  "Tuttlingen": 0.09300000000000001,
-  "Waldshut": 0.076,
-  "Kreis Rottweil": 0.036000000000000004
+  "Stuttgart": {
+   "cases": 341.0,
+   "casesPerThousand": 0.537
+  },
+  "Kreis Esslingen": {
+   "cases": 323.0,
+   "casesPerThousand": 0.605
+  },
+  "Rhein-Neckar-Kreis": {
+   "cases": 215.0,
+   "casesPerThousand": 0.39299999999999996
+  },
+  "Hohenlohekreis": {
+   "cases": 182.0,
+   "casesPerThousand": 1.625
+  },
+  "Freiburg": {
+   "cases": 181.0,
+   "casesPerThousand": 0.7859999999999999
+  },
+  "Kreis Ludwigsburg": {
+   "cases": 175.0,
+   "casesPerThousand": 0.322
+  },
+  "Breisgau-Hochschwarzwald": {
+   "cases": 160.0,
+   "casesPerThousand": 0.609
+  },
+  "Kreis Karlsruhe": {
+   "cases": 151.0,
+   "casesPerThousand": 0.34
+  },
+  "Ostalbkreis": {
+   "cases": 138.0,
+   "casesPerThousand": 0.439
+  },
+  "Landkreis Heilbronn": {
+   "cases": 135.0,
+   "casesPerThousand": 0.39399999999999996
+  },
+  "Kreis B\u00f6blingen": {
+   "cases": 125.0,
+   "casesPerThousand": 0.319
+  },
+  "Kreis T\u00fcbingen": {
+   "cases": 125.0,
+   "casesPerThousand": 0.55
+  },
+  "Heilbronn": {
+   "cases": 118.0,
+   "casesPerThousand": 0.937
+  },
+  "Rems-Murr-Kreis": {
+   "cases": 117.0,
+   "casesPerThousand": 0.275
+  },
+  "Kreis Calw": {
+   "cases": 113.0,
+   "casesPerThousand": 0.713
+  },
+  "Kreis Emmendingen": {
+   "cases": 110.0,
+   "casesPerThousand": 0.665
+  },
+  "Kreis G\u00f6ppingen": {
+   "cases": 110.0,
+   "casesPerThousand": 0.428
+  },
+  "Kreis Ravensburg": {
+   "cases": 110.0,
+   "casesPerThousand": 0.387
+  },
+  "Alb-Donau-Kreis": {
+   "cases": 107.0,
+   "casesPerThousand": 0.546
+  },
+  "Kreis Rastatt": {
+   "cases": 104.0,
+   "casesPerThousand": 0.45
+  },
+  "Mannheim": {
+   "cases": 102.0,
+   "casesPerThousand": 0.33
+  },
+  "Kreis Schw\u00e4bisch Hall": {
+   "cases": 98.0,
+   "casesPerThousand": 0.5
+  },
+  "Karlsruhe": {
+   "cases": 96.0,
+   "casesPerThousand": 0.307
+  },
+  "Reutlingen": {
+   "cases": 94.0,
+   "casesPerThousand": 0.32799999999999996
+  },
+  "Bodenseekreis": {
+   "cases": 71.0,
+   "casesPerThousand": 0.32799999999999996
+  },
+  "Ortenaukreis": {
+   "cases": 71.0,
+   "casesPerThousand": 0.165
+  },
+  "Zollernalbkreis": {
+   "cases": 70.0,
+   "casesPerThousand": 0.37
+  },
+  "Kreis Sigmaringen": {
+   "cases": 67.0,
+   "casesPerThousand": 0.512
+  },
+  "Heidelberg": {
+   "cases": 57.0,
+   "casesPerThousand": 0.355
+  },
+  "Kreis L\u00f6rrach": {
+   "cases": 57.0,
+   "casesPerThousand": 0.249
+  },
+  "Kreis Biberach": {
+   "cases": 55.0,
+   "casesPerThousand": 0.275
+  },
+  "Kreis Konstanz": {
+   "cases": 52.0,
+   "casesPerThousand": 0.182
+  },
+  "Kreis Heidenheim": {
+   "cases": 50.0,
+   "casesPerThousand": 0.377
+  },
+  "Ulm": {
+   "cases": 50.0,
+   "casesPerThousand": 0.396
+  },
+  "Schwarzwald-Baar-Kreis": {
+   "cases": 39.0,
+   "casesPerThousand": 0.184
+  },
+  "Main-Tauber-Kreis": {
+   "cases": 36.0,
+   "casesPerThousand": 0.272
+  },
+  "Enzkreis": {
+   "cases": 30.0,
+   "casesPerThousand": 0.151
+  },
+  "Neckar-Odenwald-Kreis": {
+   "cases": 26.0,
+   "casesPerThousand": 0.18100000000000002
+  },
+  "Baden-Baden": {
+   "cases": 21.0,
+   "casesPerThousand": 0.381
+  },
+  "Pforzheim": {
+   "cases": 19.0,
+   "casesPerThousand": 0.151
+  },
+  "Kreis Freudenstadt": {
+   "cases": 16.0,
+   "casesPerThousand": 0.136
+  },
+  "Tuttlingen": {
+   "cases": 13.0,
+   "casesPerThousand": 0.09300000000000001
+  },
+  "Waldshut": {
+   "cases": 13.0,
+   "casesPerThousand": 0.076
+  },
+  "Kreis Rottweil": {
+   "cases": 5.0,
+   "casesPerThousand": 0.036000000000000004
+  }
  },
  "Bayern": {
-  "M\u00fcnchen Stadt": 0.402,
-  "M\u00fcnchen": 0.92,
-  "Freising": 0.9159999999999999,
-  "Starnberg": 0.735,
-  "Landshut": 0.611,
-  "G\u00fcnzburg": 0.7,
-  "N\u00fcrnberg Stadt": 0.14300000000000002,
-  "W\u00fcrzburg": 0.457,
-  "Rosenheim": 0.253,
-  "Regensburg Stadt": 0.419,
-  "Tirschenreuth": 0.855,
-  "Miesbach": 0.5820000000000001,
-  "Landshut Stadt": 0.787,
-  "W\u00fcrzburg Stadt": 0.43,
-  "Augsburg Stadt": 0.183,
-  "Regensburg": 0.27899999999999997,
-  "Erding": 0.385,
-  "Rottal-Inn": 0.423,
-  "Weilheim-Schongau": 0.355,
-  "Oberallg\u00e4u": 0.303,
-  "Dachau": 0.292,
-  "Ebersberg": 0.295,
-  "Cham": 0.313,
-  "Schweinfurt": 0.33899999999999997,
-  "Bamberg": 0.258,
-  "Augsburg": 0.147,
-  "F\u00fcrstenfeldbruck": 0.16399999999999998,
-  "Landsberg am Lech": 0.3,
-  "Deggendorf": 0.293,
-  "Lindau (Bodensee)": 0.429,
-  "Rosenheim Stadt": 0.5529999999999999,
-  "Traunstein": 0.192,
-  "Kempten Stadt": 0.46399999999999997,
-  "Aschaffenburg Stadt": 0.44,
-  "Bad T\u00f6lz": 0.244,
-  "Neuburg-Schrobenhausen": 0.3,
-  "Garmisch-Partenkirchen": 0.305,
-  "Unterallg\u00e4u": 0.187,
-  "Neumarkt i.d.Opf.": 0.195,
-  "Aichach-Friedberg": 0.18,
-  "Neu-Ulm": 0.138,
-  "Passau": 0.12,
-  "Regen": 0.29600000000000004,
-  "Schwandorf": 0.156,
-  "Bamberg Stadt": 0.284,
-  "Dingolfing-Landau": 0.22899999999999998,
-  "Ostallg\u00e4u": 0.157,
-  "Aschaffenburg": 0.115,
-  "Straubing-Bogen": 0.19899999999999998,
-  "Hof": 0.19899999999999998,
-  "Miltenberg": 0.14800000000000002,
-  "Pfaffenhofen a.d.Ilm": 0.149,
-  "Straubing Stadt": 0.39799999999999996,
-  "Amberg-Sulzbach": 0.175,
-  "Erlangen-H\u00f6chstadt": 0.132,
-  "Forchheim": 0.155,
-  "Neustadt a.d. Aisch-Bad Windsheim": 0.179,
-  "Coburg Stadt": 0.41200000000000003,
-  "Coburg": 0.184,
-  "F\u00fcrth Stadt": 0.125,
-  "Kelheim": 0.131,
-  "M\u00fchldorf a.Inn": 0.139,
-  "Wunsiedel i. Fichtelgebirge": 0.21899999999999997,
-  "Erlangen Stadt": 0.134,
-  "Freyung-Grafenau": 0.179,
-  "Ha\u00dfberge": 0.165,
-  "Alt\u00f6tting": 0.11699999999999999,
-  "Bayreuth": 0.125,
-  "Eichst\u00e4tt": 0.098,
-  "Kronach": 0.179,
-  "Kulmbach": 0.16699999999999998,
-  "Main-Spessart": 0.095,
-  "Roth": 0.095,
-  "Donau-Ries": 0.08199999999999999,
-  "Kitzingen": 0.121,
-  "Ansbach Stadt": 0.215,
-  "Bad Kissingen": 0.087,
-  "Memmingen Stadt": 0.205,
-  "Berchtesgadener Land": 0.076,
-  "Hof Stadt": 0.174,
-  "Rh\u00f6n-Grabfeld": 0.1,
-  "Schwabach Stadt": 0.196,
-  "Wei\u00dfenburg-Gunzenhausen": 0.085,
-  "F\u00fcrth": 0.06,
-  "Lichtenfels": 0.105,
-  "Neustadt a. d. Waldnaab": 0.07400000000000001,
-  "N\u00fcrnberger Land": 0.040999999999999995,
-  "Weiden Stadt": 0.165,
-  "Dillingen a.d. Donau": 0.062,
-  "Passau Stadt": 0.114,
-  "Kaufbeuren Stadt": 0.114,
-  "Ingolstadt Stadt": 0.028999999999999998,
-  "Schweinfurt Stadt": 0.07400000000000001,
-  "Ansbach": 0.016,
-  "Amberg Stadt": 0.048,
-  "Bayreuth Stadt": 0.027000000000000003
+  "M\u00fcnchen Stadt": {
+   "cases": 591.0,
+   "casesPerThousand": 0.402
+  },
+  "M\u00fcnchen": {
+   "cases": 321.0,
+   "casesPerThousand": 0.92
+  },
+  "Freising": {
+   "cases": 164.0,
+   "casesPerThousand": 0.9159999999999999
+  },
+  "Starnberg": {
+   "cases": 100.0,
+   "casesPerThousand": 0.735
+  },
+  "Landshut": {
+   "cases": 97.0,
+   "casesPerThousand": 0.611
+  },
+  "G\u00fcnzburg": {
+   "cases": 88.0,
+   "casesPerThousand": 0.7
+  },
+  "N\u00fcrnberg Stadt": {
+   "cases": 74.0,
+   "casesPerThousand": 0.14300000000000002
+  },
+  "W\u00fcrzburg": {
+   "cases": 74.0,
+   "casesPerThousand": 0.457
+  },
+  "Rosenheim": {
+   "cases": 66.0,
+   "casesPerThousand": 0.253
+  },
+  "Regensburg Stadt": {
+   "cases": 64.0,
+   "casesPerThousand": 0.419
+  },
+  "Tirschenreuth": {
+   "cases": 62.0,
+   "casesPerThousand": 0.855
+  },
+  "Miesbach": {
+   "cases": 58.0,
+   "casesPerThousand": 0.5820000000000001
+  },
+  "Landshut Stadt": {
+   "cases": 57.0,
+   "casesPerThousand": 0.787
+  },
+  "W\u00fcrzburg Stadt": {
+   "cases": 55.0,
+   "casesPerThousand": 0.43
+  },
+  "Augsburg Stadt": {
+   "cases": 54.0,
+   "casesPerThousand": 0.183
+  },
+  "Regensburg": {
+   "cases": 54.0,
+   "casesPerThousand": 0.27899999999999997
+  },
+  "Erding": {
+   "cases": 53.0,
+   "casesPerThousand": 0.385
+  },
+  "Rottal-Inn": {
+   "cases": 51.0,
+   "casesPerThousand": 0.423
+  },
+  "Weilheim-Schongau": {
+   "cases": 48.0,
+   "casesPerThousand": 0.355
+  },
+  "Oberallg\u00e4u": {
+   "cases": 47.0,
+   "casesPerThousand": 0.303
+  },
+  "Dachau": {
+   "cases": 45.0,
+   "casesPerThousand": 0.292
+  },
+  "Ebersberg": {
+   "cases": 42.0,
+   "casesPerThousand": 0.295
+  },
+  "Cham": {
+   "cases": 40.0,
+   "casesPerThousand": 0.313
+  },
+  "Schweinfurt": {
+   "cases": 39.0,
+   "casesPerThousand": 0.33899999999999997
+  },
+  "Bamberg": {
+   "cases": 38.0,
+   "casesPerThousand": 0.258
+  },
+  "Augsburg": {
+   "cases": 37.0,
+   "casesPerThousand": 0.147
+  },
+  "F\u00fcrstenfeldbruck": {
+   "cases": 36.0,
+   "casesPerThousand": 0.16399999999999998
+  },
+  "Landsberg am Lech": {
+   "cases": 36.0,
+   "casesPerThousand": 0.3
+  },
+  "Deggendorf": {
+   "cases": 35.0,
+   "casesPerThousand": 0.293
+  },
+  "Lindau (Bodensee)": {
+   "cases": 35.0,
+   "casesPerThousand": 0.429
+  },
+  "Rosenheim Stadt": {
+   "cases": 35.0,
+   "casesPerThousand": 0.5529999999999999
+  },
+  "Traunstein": {
+   "cases": 34.0,
+   "casesPerThousand": 0.192
+  },
+  "Kempten Stadt": {
+   "cases": 32.0,
+   "casesPerThousand": 0.46399999999999997
+  },
+  "Aschaffenburg Stadt": {
+   "cases": 31.0,
+   "casesPerThousand": 0.44
+  },
+  "Bad T\u00f6lz": {
+   "cases": 31.0,
+   "casesPerThousand": 0.244
+  },
+  "Neuburg-Schrobenhausen": {
+   "cases": 29.0,
+   "casesPerThousand": 0.3
+  },
+  "Garmisch-Partenkirchen": {
+   "cases": 27.0,
+   "casesPerThousand": 0.305
+  },
+  "Unterallg\u00e4u": {
+   "cases": 27.0,
+   "casesPerThousand": 0.187
+  },
+  "Neumarkt i.d.Opf.": {
+   "cases": 26.0,
+   "casesPerThousand": 0.195
+  },
+  "Aichach-Friedberg": {
+   "cases": 24.0,
+   "casesPerThousand": 0.18
+  },
+  "Neu-Ulm": {
+   "cases": 24.0,
+   "casesPerThousand": 0.138
+  },
+  "Passau": {
+   "cases": 23.0,
+   "casesPerThousand": 0.12
+  },
+  "Regen": {
+   "cases": 23.0,
+   "casesPerThousand": 0.29600000000000004
+  },
+  "Schwandorf": {
+   "cases": 23.0,
+   "casesPerThousand": 0.156
+  },
+  "Bamberg Stadt": {
+   "cases": 22.0,
+   "casesPerThousand": 0.284
+  },
+  "Dingolfing-Landau": {
+   "cases": 22.0,
+   "casesPerThousand": 0.22899999999999998
+  },
+  "Ostallg\u00e4u": {
+   "cases": 22.0,
+   "casesPerThousand": 0.157
+  },
+  "Aschaffenburg": {
+   "cases": 20.0,
+   "casesPerThousand": 0.115
+  },
+  "Straubing-Bogen": {
+   "cases": 20.0,
+   "casesPerThousand": 0.19899999999999998
+  },
+  "Hof": {
+   "cases": 19.0,
+   "casesPerThousand": 0.19899999999999998
+  },
+  "Miltenberg": {
+   "cases": 19.0,
+   "casesPerThousand": 0.14800000000000002
+  },
+  "Pfaffenhofen a.d.Ilm": {
+   "cases": 19.0,
+   "casesPerThousand": 0.149
+  },
+  "Straubing Stadt": {
+   "cases": 19.0,
+   "casesPerThousand": 0.39799999999999996
+  },
+  "Amberg-Sulzbach": {
+   "cases": 18.0,
+   "casesPerThousand": 0.175
+  },
+  "Erlangen-H\u00f6chstadt": {
+   "cases": 18.0,
+   "casesPerThousand": 0.132
+  },
+  "Forchheim": {
+   "cases": 18.0,
+   "casesPerThousand": 0.155
+  },
+  "Neustadt a.d. Aisch-Bad Windsheim": {
+   "cases": 18.0,
+   "casesPerThousand": 0.179
+  },
+  "Coburg Stadt": {
+   "cases": 17.0,
+   "casesPerThousand": 0.41200000000000003
+  },
+  "Coburg": {
+   "cases": 16.0,
+   "casesPerThousand": 0.184
+  },
+  "F\u00fcrth Stadt": {
+   "cases": 16.0,
+   "casesPerThousand": 0.125
+  },
+  "Kelheim": {
+   "cases": 16.0,
+   "casesPerThousand": 0.131
+  },
+  "M\u00fchldorf a.Inn": {
+   "cases": 16.0,
+   "casesPerThousand": 0.139
+  },
+  "Wunsiedel i. Fichtelgebirge": {
+   "cases": 16.0,
+   "casesPerThousand": 0.21899999999999997
+  },
+  "Erlangen Stadt": {
+   "cases": 15.0,
+   "casesPerThousand": 0.134
+  },
+  "Freyung-Grafenau": {
+   "cases": 14.0,
+   "casesPerThousand": 0.179
+  },
+  "Ha\u00dfberge": {
+   "cases": 14.0,
+   "casesPerThousand": 0.165
+  },
+  "Alt\u00f6tting": {
+   "cases": 13.0,
+   "casesPerThousand": 0.11699999999999999
+  },
+  "Bayreuth": {
+   "cases": 13.0,
+   "casesPerThousand": 0.125
+  },
+  "Eichst\u00e4tt": {
+   "cases": 13.0,
+   "casesPerThousand": 0.098
+  },
+  "Kronach": {
+   "cases": 12.0,
+   "casesPerThousand": 0.179
+  },
+  "Kulmbach": {
+   "cases": 12.0,
+   "casesPerThousand": 0.16699999999999998
+  },
+  "Main-Spessart": {
+   "cases": 12.0,
+   "casesPerThousand": 0.095
+  },
+  "Roth": {
+   "cases": 12.0,
+   "casesPerThousand": 0.095
+  },
+  "Donau-Ries": {
+   "cases": 11.0,
+   "casesPerThousand": 0.08199999999999999
+  },
+  "Kitzingen": {
+   "cases": 11.0,
+   "casesPerThousand": 0.121
+  },
+  "Ansbach Stadt": {
+   "cases": 9.0,
+   "casesPerThousand": 0.215
+  },
+  "Bad Kissingen": {
+   "cases": 9.0,
+   "casesPerThousand": 0.087
+  },
+  "Memmingen Stadt": {
+   "cases": 9.0,
+   "casesPerThousand": 0.205
+  },
+  "Berchtesgadener Land": {
+   "cases": 8.0,
+   "casesPerThousand": 0.076
+  },
+  "Hof Stadt": {
+   "cases": 8.0,
+   "casesPerThousand": 0.174
+  },
+  "Rh\u00f6n-Grabfeld": {
+   "cases": 8.0,
+   "casesPerThousand": 0.1
+  },
+  "Schwabach Stadt": {
+   "cases": 8.0,
+   "casesPerThousand": 0.196
+  },
+  "Wei\u00dfenburg-Gunzenhausen": {
+   "cases": 8.0,
+   "casesPerThousand": 0.085
+  },
+  "F\u00fcrth": {
+   "cases": 7.0,
+   "casesPerThousand": 0.06
+  },
+  "Lichtenfels": {
+   "cases": 7.0,
+   "casesPerThousand": 0.105
+  },
+  "Neustadt a. d. Waldnaab": {
+   "cases": 7.0,
+   "casesPerThousand": 0.07400000000000001
+  },
+  "N\u00fcrnberger Land": {
+   "cases": 7.0,
+   "casesPerThousand": 0.040999999999999995
+  },
+  "Weiden Stadt": {
+   "cases": 7.0,
+   "casesPerThousand": 0.165
+  },
+  "Dillingen a.d. Donau": {
+   "cases": 6.0,
+   "casesPerThousand": 0.062
+  },
+  "Passau Stadt": {
+   "cases": 6.0,
+   "casesPerThousand": 0.114
+  },
+  "Kaufbeuren Stadt": {
+   "cases": 5.0,
+   "casesPerThousand": 0.114
+  },
+  "Ingolstadt Stadt": {
+   "cases": 4.0,
+   "casesPerThousand": 0.028999999999999998
+  },
+  "Schweinfurt Stadt": {
+   "cases": 4.0,
+   "casesPerThousand": 0.07400000000000001
+  },
+  "Ansbach": {
+   "cases": 3.0,
+   "casesPerThousand": 0.016
+  },
+  "Amberg Stadt": {
+   "cases": 2.0,
+   "casesPerThousand": 0.048
+  },
+  "Bayreuth Stadt": {
+   "cases": 2.0,
+   "casesPerThousand": 0.027000000000000003
+  }
  },
  "Niedersachsen": {
-  "Region Hannover": 0.105,
-  "Oldenburg Land": 0.353,
-  "Osnabr\u00fcck Stadt": 0.2,
-  "Schaumburg": 0.184,
-  "Hildesheim": 0.10099999999999999,
-  "Emsland": 0.08,
-  "Diepholz": 0.115,
-  "G\u00f6ttingen": 0.057999999999999996,
-  "Harburg": 0.071,
-  "Northeim": 0.136,
-  "Osnabr\u00fcck Land": 0.048,
-  "Stade": 0.084,
-  "Gifhorn": 0.091,
-  "Peine": 0.11199999999999999,
-  "Celle": 0.078,
-  "Aurich": 0.068,
-  "Vechta": 0.092,
-  "Osterholz": 0.106,
-  "Oldenburg Stadt": 0.065,
-  "Hameln-Pyrmont": 0.061,
-  "Ammerland": 0.064,
-  "Braunschweig": 0.032,
-  "Holzminden": 0.113,
-  "Verden": 0.057999999999999996,
-  "Goslar": 0.051,
-  "Cuxhaven": 0.03,
-  "Delmenhorst": 0.077,
-  "L\u00fcneburg": 0.033,
-  "Uelzen": 0.065,
-  "Grafschaft Bentheim": 0.037000000000000005,
-  "Rotenburg (W\u00fcmme)": 0.031,
-  "Salzgitter": 0.048,
-  "Emden": 0.08,
-  "Nienburg/Weser": 0.033,
-  "Friesland": 0.03,
-  "Leer": 0.018000000000000002,
-  "L\u00fcchow-Dannenberg": 0.062,
-  "Wesermarsch": 0.034,
-  "Wilhelmshaven": 0.039,
-  "Wittmund": 0.053,
-  "Wolfsburg": 0.024,
-  "Cloppenburg": 0.012,
-  "Helmstedt": 0.022000000000000002,
-  "Heidekreis": 0.006999999999999999,
-  "Wolfenb\u00fcttel": 0.008
+  "Region Hannover": {
+   "cases": 121.0,
+   "casesPerThousand": 0.105
+  },
+  "Oldenburg Land": {
+   "cases": 46.0,
+   "casesPerThousand": 0.353
+  },
+  "Osnabr\u00fcck Stadt": {
+   "cases": 33.0,
+   "casesPerThousand": 0.2
+  },
+  "Schaumburg": {
+   "cases": 29.0,
+   "casesPerThousand": 0.184
+  },
+  "Hildesheim": {
+   "cases": 28.0,
+   "casesPerThousand": 0.10099999999999999
+  },
+  "Emsland": {
+   "cases": 26.0,
+   "casesPerThousand": 0.08
+  },
+  "Diepholz": {
+   "cases": 25.0,
+   "casesPerThousand": 0.115
+  },
+  "G\u00f6ttingen": {
+   "cases": 19.0,
+   "casesPerThousand": 0.057999999999999996
+  },
+  "Harburg": {
+   "cases": 18.0,
+   "casesPerThousand": 0.071
+  },
+  "Northeim": {
+   "cases": 18.0,
+   "casesPerThousand": 0.136
+  },
+  "Osnabr\u00fcck Land": {
+   "cases": 17.0,
+   "casesPerThousand": 0.048
+  },
+  "Stade": {
+   "cases": 17.0,
+   "casesPerThousand": 0.084
+  },
+  "Gifhorn": {
+   "cases": 16.0,
+   "casesPerThousand": 0.091
+  },
+  "Peine": {
+   "cases": 15.0,
+   "casesPerThousand": 0.11199999999999999
+  },
+  "Celle": {
+   "cases": 14.0,
+   "casesPerThousand": 0.078
+  },
+  "Aurich": {
+   "cases": 13.0,
+   "casesPerThousand": 0.068
+  },
+  "Vechta": {
+   "cases": 13.0,
+   "casesPerThousand": 0.092
+  },
+  "Osterholz": {
+   "cases": 12.0,
+   "casesPerThousand": 0.106
+  },
+  "Oldenburg Stadt": {
+   "cases": 11.0,
+   "casesPerThousand": 0.065
+  },
+  "Hameln-Pyrmont": {
+   "cases": 9.0,
+   "casesPerThousand": 0.061
+  },
+  "Ammerland": {
+   "cases": 8.0,
+   "casesPerThousand": 0.064
+  },
+  "Braunschweig": {
+   "cases": 8.0,
+   "casesPerThousand": 0.032
+  },
+  "Holzminden": {
+   "cases": 8.0,
+   "casesPerThousand": 0.113
+  },
+  "Verden": {
+   "cases": 8.0,
+   "casesPerThousand": 0.057999999999999996
+  },
+  "Goslar": {
+   "cases": 7.0,
+   "casesPerThousand": 0.051
+  },
+  "Cuxhaven": {
+   "cases": 6.0,
+   "casesPerThousand": 0.03
+  },
+  "Delmenhorst": {
+   "cases": 6.0,
+   "casesPerThousand": 0.077
+  },
+  "L\u00fcneburg": {
+   "cases": 6.0,
+   "casesPerThousand": 0.033
+  },
+  "Uelzen": {
+   "cases": 6.0,
+   "casesPerThousand": 0.065
+  },
+  "Grafschaft Bentheim": {
+   "cases": 5.0,
+   "casesPerThousand": 0.037000000000000005
+  },
+  "Rotenburg (W\u00fcmme)": {
+   "cases": 5.0,
+   "casesPerThousand": 0.031
+  },
+  "Salzgitter": {
+   "cases": 5.0,
+   "casesPerThousand": 0.048
+  },
+  "Emden": {
+   "cases": 4.0,
+   "casesPerThousand": 0.08
+  },
+  "Nienburg/Weser": {
+   "cases": 4.0,
+   "casesPerThousand": 0.033
+  },
+  "Friesland": {
+   "cases": 3.0,
+   "casesPerThousand": 0.03
+  },
+  "Leer": {
+   "cases": 3.0,
+   "casesPerThousand": 0.018000000000000002
+  },
+  "L\u00fcchow-Dannenberg": {
+   "cases": 3.0,
+   "casesPerThousand": 0.062
+  },
+  "Wesermarsch": {
+   "cases": 3.0,
+   "casesPerThousand": 0.034
+  },
+  "Wilhelmshaven": {
+   "cases": 3.0,
+   "casesPerThousand": 0.039
+  },
+  "Wittmund": {
+   "cases": 3.0,
+   "casesPerThousand": 0.053
+  },
+  "Wolfsburg": {
+   "cases": 3.0,
+   "casesPerThousand": 0.024
+  },
+  "Cloppenburg": {
+   "cases": 2.0,
+   "casesPerThousand": 0.012
+  },
+  "Helmstedt": {
+   "cases": 2.0,
+   "casesPerThousand": 0.022000000000000002
+  },
+  "Heidekreis": {
+   "cases": 1.0,
+   "casesPerThousand": 0.006999999999999999
+  },
+  "Wolfenb\u00fcttel": {
+   "cases": 1.0,
+   "casesPerThousand": 0.008
+  }
  },
  "Hessen": {
-  "Frankfurt am Main": 0.162,
-  "Fulda": 0.32799999999999996,
-  "Schwalm-Eder-Kreis": 0.322,
-  "Hochtaunuskreis": 0.22,
-  "Wiesbaden": 0.187,
-  "Gro\u00df-Gerau": 0.175,
-  "Main-Kinzig-Kreis": 0.11199999999999999,
-  "Landkreis Offenbach": 0.121,
-  "Limburg-Weilburg": 0.23800000000000002,
-  "Main-Taunus-Kreis": 0.168,
-  "Gie\u00dfen": 0.145,
-  "Kassel": 0.18899999999999997,
-  "Bergstra\u00dfe": 0.13699999999999998,
-  "Marburg-Biedenkopf": 0.138,
-  "Lahn-Dill-Kreis": 0.126,
-  "Darmstadt-Dieburg": 0.094,
-  "Landkreis Kassel": 0.11,
-  "Rheingau-Taunus-Kreis": 0.139,
-  "Wetteraukreis": 0.085,
-  "Waldeck-Frankenberg": 0.159,
-  "Hersfeld-Rotenburg": 0.174,
-  "Vogelsbergkreis": 0.161,
-  "Darmstadt": 0.1,
-  "Odenwaldkreis": 0.083,
-  "Offenbach am Main": 0.039,
-  "Werra-Mei\u00dfner-Kreis": 0.02
+  "Frankfurt am Main": {
+   "cases": 122.0,
+   "casesPerThousand": 0.162
+  },
+  "Fulda": {
+   "cases": 73.0,
+   "casesPerThousand": 0.32799999999999996
+  },
+  "Schwalm-Eder-Kreis": {
+   "cases": 58.0,
+   "casesPerThousand": 0.322
+  },
+  "Hochtaunuskreis": {
+   "cases": 52.0,
+   "casesPerThousand": 0.22
+  },
+  "Wiesbaden": {
+   "cases": 52.0,
+   "casesPerThousand": 0.187
+  },
+  "Gro\u00df-Gerau": {
+   "cases": 48.0,
+   "casesPerThousand": 0.175
+  },
+  "Main-Kinzig-Kreis": {
+   "cases": 47.0,
+   "casesPerThousand": 0.11199999999999999
+  },
+  "Landkreis Offenbach": {
+   "cases": 43.0,
+   "casesPerThousand": 0.121
+  },
+  "Limburg-Weilburg": {
+   "cases": 41.0,
+   "casesPerThousand": 0.23800000000000002
+  },
+  "Main-Taunus-Kreis": {
+   "cases": 40.0,
+   "casesPerThousand": 0.168
+  },
+  "Gie\u00dfen": {
+   "cases": 39.0,
+   "casesPerThousand": 0.145
+  },
+  "Kassel": {
+   "cases": 38.0,
+   "casesPerThousand": 0.18899999999999997
+  },
+  "Bergstra\u00dfe": {
+   "cases": 37.0,
+   "casesPerThousand": 0.13699999999999998
+  },
+  "Marburg-Biedenkopf": {
+   "cases": 34.0,
+   "casesPerThousand": 0.138
+  },
+  "Lahn-Dill-Kreis": {
+   "cases": 32.0,
+   "casesPerThousand": 0.126
+  },
+  "Darmstadt-Dieburg": {
+   "cases": 28.0,
+   "casesPerThousand": 0.094
+  },
+  "Landkreis Kassel": {
+   "cases": 26.0,
+   "casesPerThousand": 0.11
+  },
+  "Rheingau-Taunus-Kreis": {
+   "cases": 26.0,
+   "casesPerThousand": 0.139
+  },
+  "Wetteraukreis": {
+   "cases": 26.0,
+   "casesPerThousand": 0.085
+  },
+  "Waldeck-Frankenberg": {
+   "cases": 25.0,
+   "casesPerThousand": 0.159
+  },
+  "Hersfeld-Rotenburg": {
+   "cases": 21.0,
+   "casesPerThousand": 0.174
+  },
+  "Vogelsbergkreis": {
+   "cases": 17.0,
+   "casesPerThousand": 0.161
+  },
+  "Darmstadt": {
+   "cases": 16.0,
+   "casesPerThousand": 0.1
+  },
+  "Odenwaldkreis": {
+   "cases": 8.0,
+   "casesPerThousand": 0.083
+  },
+  "Offenbach am Main": {
+   "cases": 5.0,
+   "casesPerThousand": 0.039
+  },
+  "Werra-Mei\u00dfner-Kreis": {
+   "cases": 2.0,
+   "casesPerThousand": 0.02
+  }
  },
  "Rheinland-Pfalz": {
-  "Mayen-Koblenz": 0.49,
-  "Alzey-Worms": 0.457,
-  "Bad D\u00fcrkheim": 0.42200000000000004,
-  "Mainz": 0.253,
-  "Neuwied": 0.29100000000000004,
-  "Westerwaldkreis": 0.253,
-  "Koblenz": 0.368,
-  "Cochem-Zell": 0.617,
-  "Donnersbergkreis": 0.506,
-  "Mainz-Bingen": 0.175,
-  "Rhein-Hunsr\u00fcck-Kreis": 0.359,
-  "Eifelkreis Bitburg-Pr\u00fcm": 0.325,
-  "Rhein-Lahn-Kreis": 0.262,
-  "Ahrweiler": 0.239,
-  "S\u00fcdliche Weinstra\u00dfe": 0.254,
-  "Bad Kreuznach": 0.145,
-  "Germersheim": 0.17,
-  "Vulkaneifel": 0.363,
-  "Trier-Saarburg": 0.128,
-  "Kusel": 0.255,
-  "Bernkastel-Wittlich": 0.14300000000000002,
-  "Ludwigshafen am Rhein": 0.076,
-  "Kaiserslautern": 0.12300000000000001,
-  "Altenkirchen (Westerwald)": 0.10099999999999999,
-  "Landkreis Kaiserslautern": 0.12,
-  "Trier": 0.099,
-  "Frankenthal (Pfalz)": 0.185,
-  "Rhein-Pfalz-Kreis": 0.052000000000000005,
-  "Speyer": 0.159,
-  "Neustadt an der Weinstra\u00dfe": 0.132,
-  "Birkenfeld": 0.062,
-  "Zweibr\u00fccken": 0.11699999999999999,
-  "Landau in der Pfalz": 0.086,
-  "S\u00fcdwestpfalz": 0.032,
-  "Pirmasens": 0.025,
-  "Worms": 0.012
+  "Mayen-Koblenz": {
+   "cases": 105.0,
+   "casesPerThousand": 0.49
+  },
+  "Alzey-Worms": {
+   "cases": 59.0,
+   "casesPerThousand": 0.457
+  },
+  "Bad D\u00fcrkheim": {
+   "cases": 56.0,
+   "casesPerThousand": 0.42200000000000004
+  },
+  "Mainz": {
+   "cases": 55.0,
+   "casesPerThousand": 0.253
+  },
+  "Neuwied": {
+   "cases": 53.0,
+   "casesPerThousand": 0.29100000000000004
+  },
+  "Westerwaldkreis": {
+   "cases": 51.0,
+   "casesPerThousand": 0.253
+  },
+  "Koblenz": {
+   "cases": 42.0,
+   "casesPerThousand": 0.368
+  },
+  "Cochem-Zell": {
+   "cases": 38.0,
+   "casesPerThousand": 0.617
+  },
+  "Donnersbergkreis": {
+   "cases": 38.0,
+   "casesPerThousand": 0.506
+  },
+  "Mainz-Bingen": {
+   "cases": 37.0,
+   "casesPerThousand": 0.175
+  },
+  "Rhein-Hunsr\u00fcck-Kreis": {
+   "cases": 37.0,
+   "casesPerThousand": 0.359
+  },
+  "Eifelkreis Bitburg-Pr\u00fcm": {
+   "cases": 32.0,
+   "casesPerThousand": 0.325
+  },
+  "Rhein-Lahn-Kreis": {
+   "cases": 32.0,
+   "casesPerThousand": 0.262
+  },
+  "Ahrweiler": {
+   "cases": 31.0,
+   "casesPerThousand": 0.239
+  },
+  "S\u00fcdliche Weinstra\u00dfe": {
+   "cases": 28.0,
+   "casesPerThousand": 0.254
+  },
+  "Bad Kreuznach": {
+   "cases": 23.0,
+   "casesPerThousand": 0.145
+  },
+  "Germersheim": {
+   "cases": 22.0,
+   "casesPerThousand": 0.17
+  },
+  "Vulkaneifel": {
+   "cases": 22.0,
+   "casesPerThousand": 0.363
+  },
+  "Trier-Saarburg": {
+   "cases": 19.0,
+   "casesPerThousand": 0.128
+  },
+  "Kusel": {
+   "cases": 18.0,
+   "casesPerThousand": 0.255
+  },
+  "Bernkastel-Wittlich": {
+   "cases": 16.0,
+   "casesPerThousand": 0.14300000000000002
+  },
+  "Ludwigshafen am Rhein": {
+   "cases": 13.0,
+   "casesPerThousand": 0.076
+  },
+  "Kaiserslautern": {
+   "cases": 13.0,
+   "casesPerThousand": 0.12300000000000001
+  },
+  "Altenkirchen (Westerwald)": {
+   "cases": 13.0,
+   "casesPerThousand": 0.10099999999999999
+  },
+  "Landkreis Kaiserslautern": {
+   "cases": 12.0,
+   "casesPerThousand": 0.12
+  },
+  "Trier": {
+   "cases": 11.0,
+   "casesPerThousand": 0.099
+  },
+  "Frankenthal (Pfalz)": {
+   "cases": 9.0,
+   "casesPerThousand": 0.185
+  },
+  "Rhein-Pfalz-Kreis": {
+   "cases": 8.0,
+   "casesPerThousand": 0.052000000000000005
+  },
+  "Speyer": {
+   "cases": 8.0,
+   "casesPerThousand": 0.159
+  },
+  "Neustadt an der Weinstra\u00dfe": {
+   "cases": 7.0,
+   "casesPerThousand": 0.132
+  },
+  "Birkenfeld": {
+   "cases": 5.0,
+   "casesPerThousand": 0.062
+  },
+  "Zweibr\u00fccken": {
+   "cases": 4.0,
+   "casesPerThousand": 0.11699999999999999
+  },
+  "Landau in der Pfalz": {
+   "cases": 4.0,
+   "casesPerThousand": 0.086
+  },
+  "S\u00fcdwestpfalz": {
+   "cases": 3.0,
+   "casesPerThousand": 0.032
+  },
+  "Pirmasens": {
+   "cases": 1.0,
+   "casesPerThousand": 0.025
+  },
+  "Worms": {
+   "cases": 1.0,
+   "casesPerThousand": 0.012
+  }
  },
  "Berlin": {
-  "Berlin Stadt": 0.201
+  "Berlin Stadt": {
+   "cases": 731.0,
+   "casesPerThousand": 0.201
+  }
  },
  "Hamburg": {
-  "Hamburg Stadt": 0.319
+  "Hamburg Stadt": {
+   "cases": 587.0,
+   "casesPerThousand": 0.319
+  }
  },
  "Sachsen": {
-  "Leipzig Stadt": 0.136,
-  "Dresden": 0.09,
-  "Bautzen": 0.106,
-  "Zwickau ": 0.098,
-  "Leipzig": 0.081,
-  "S\u00e4chsische Schweiz-Osterzgebirge": 0.077,
-  "Chemnitz": 0.073,
-  "Erzgebirgskreis": 0.036000000000000004,
-  "Mei\u00dfen": 0.05,
-  "Mittelsachsen": 0.039,
-  "G\u00f6rlitz ": 0.035,
-  "Nordsachsen": 0.03,
-  "Vogtlandkreis": 0.013000000000000001
+  "Leipzig Stadt": {
+   "cases": 80.0,
+   "casesPerThousand": 0.136
+  },
+  "Dresden": {
+   "cases": 50.0,
+   "casesPerThousand": 0.09
+  },
+  "Bautzen": {
+   "cases": 32.0,
+   "casesPerThousand": 0.106
+  },
+  "Zwickau ": {
+   "cases": 31.0,
+   "casesPerThousand": 0.098
+  },
+  "Leipzig": {
+   "cases": 21.0,
+   "casesPerThousand": 0.081
+  },
+  "S\u00e4chsische Schweiz-Osterzgebirge": {
+   "cases": 19.0,
+   "casesPerThousand": 0.077
+  },
+  "Chemnitz": {
+   "cases": 18.0,
+   "casesPerThousand": 0.073
+  },
+  "Erzgebirgskreis": {
+   "cases": 12.0,
+   "casesPerThousand": 0.036000000000000004
+  },
+  "Mei\u00dfen": {
+   "cases": 12.0,
+   "casesPerThousand": 0.05
+  },
+  "Mittelsachsen": {
+   "cases": 12.0,
+   "casesPerThousand": 0.039
+  },
+  "G\u00f6rlitz ": {
+   "cases": 9.0,
+   "casesPerThousand": 0.035
+  },
+  "Nordsachsen": {
+   "cases": 6.0,
+   "casesPerThousand": 0.03
+  },
+  "Vogtlandkreis": {
+   "cases": 3.0,
+   "casesPerThousand": 0.013000000000000001
+  }
  },
  "Schleswig-Holstein": {
-  "Pinneberg": 0.242,
-  "L\u00fcbeck": 0.244,
-  "Kiel": 0.149,
-  "Rendsburg-Eckernf\u00f6rde": 0.11,
-  "Stormarn": 0.11900000000000001,
-  "Segeberg": 0.098,
-  "Herzogtum Lauenburg": 0.122,
-  "Schleswig-Flensburg": 0.115,
-  "Nordfriesland": 0.09699999999999999,
-  "Steinburg": 0.099,
-  "Dithmarschen": 0.09,
-  "Flensburg": 0.134,
-  "Ostholstein": 0.06,
-  "Pl\u00f6n": 0.09300000000000001,
-  "Neum\u00fcnster": 0.08800000000000001
+  "Pinneberg": {
+   "cases": 76.0,
+   "casesPerThousand": 0.242
+  },
+  "L\u00fcbeck": {
+   "cases": 53.0,
+   "casesPerThousand": 0.244
+  },
+  "Kiel": {
+   "cases": 37.0,
+   "casesPerThousand": 0.149
+  },
+  "Rendsburg-Eckernf\u00f6rde": {
+   "cases": 30.0,
+   "casesPerThousand": 0.11
+  },
+  "Stormarn": {
+   "cases": 29.0,
+   "casesPerThousand": 0.11900000000000001
+  },
+  "Segeberg": {
+   "cases": 27.0,
+   "casesPerThousand": 0.098
+  },
+  "Herzogtum Lauenburg": {
+   "cases": 24.0,
+   "casesPerThousand": 0.122
+  },
+  "Schleswig-Flensburg": {
+   "cases": 23.0,
+   "casesPerThousand": 0.115
+  },
+  "Nordfriesland": {
+   "cases": 16.0,
+   "casesPerThousand": 0.09699999999999999
+  },
+  "Steinburg": {
+   "cases": 13.0,
+   "casesPerThousand": 0.099
+  },
+  "Dithmarschen": {
+   "cases": 12.0,
+   "casesPerThousand": 0.09
+  },
+  "Flensburg": {
+   "cases": 12.0,
+   "casesPerThousand": 0.134
+  },
+  "Ostholstein": {
+   "cases": 12.0,
+   "casesPerThousand": 0.06
+  },
+  "Pl\u00f6n": {
+   "cases": 12.0,
+   "casesPerThousand": 0.09300000000000001
+  },
+  "Neum\u00fcnster": {
+   "cases": 7.0,
+   "casesPerThousand": 0.08800000000000001
+  }
  },
  "Brandenburg": {
-  "Oder-Spree": 0.207,
-  "Barnim": 0.159,
-  "M\u00e4rkisch-Oderland": 0.14400000000000002,
-  "Spree-Nei\u00dfe": 0.201,
-  "Dahme-Spreewald": 0.13,
-  "Potsdam": 0.124,
-  "Oberhavel": 0.099,
-  "Cottbus": 0.2,
-  "Potsdam-Mittelmark": 0.065,
-  "Teltow-Fl\u00e4ming": 0.077,
-  "Havelland": 0.062,
-  "Elbe-Elster": 0.078,
-  "Oberspreewald-Lausitz": 0.054000000000000006,
-  "Ostprignitz-Ruppin": 0.061,
-  "Uckermark": 0.033,
-  "Brandenburg an der Havel": 0.042,
-  "Frankfurt (Oder)": 0.052000000000000005,
-  "Prignitz": 0.013000000000000001
+  "Barnim": {
+   "cases": 37.0,
+   "casesPerThousand": 0.20199999999999999
+  },
+  "Oder-Spree": {
+   "cases": 37.0,
+   "casesPerThousand": 0.207
+  },
+  "Oberhavel": {
+   "cases": 31.0,
+   "casesPerThousand": 0.147
+  },
+  "M\u00e4rkisch-Oderland": {
+   "cases": 28.0,
+   "casesPerThousand": 0.14400000000000002
+  },
+  "Spree-Nei\u00dfe": {
+   "cases": 23.0,
+   "casesPerThousand": 0.201
+  },
+  "Dahme-Spreewald": {
+   "cases": 22.0,
+   "casesPerThousand": 0.13
+  },
+  "Potsdam": {
+   "cases": 22.0,
+   "casesPerThousand": 0.124
+  },
+  "Cottbus": {
+   "cases": 20.0,
+   "casesPerThousand": 0.2
+  },
+  "Potsdam-Mittelmark": {
+   "cases": 19.0,
+   "casesPerThousand": 0.08900000000000001
+  },
+  "Teltow-Fl\u00e4ming": {
+   "cases": 13.0,
+   "casesPerThousand": 0.077
+  },
+  "Havelland": {
+   "cases": 10.0,
+   "casesPerThousand": 0.062
+  },
+  "Elbe-Elster": {
+   "cases": 8.0,
+   "casesPerThousand": 0.078
+  },
+  "Oberspreewald-Lausitz": {
+   "cases": 6.0,
+   "casesPerThousand": 0.054000000000000006
+  },
+  "Ostprignitz-Ruppin": {
+   "cases": 6.0,
+   "casesPerThousand": 0.061
+  },
+  "Uckermark": {
+   "cases": 4.0,
+   "casesPerThousand": 0.033
+  },
+  "Brandenburg an der Havel": {
+   "cases": 3.0,
+   "casesPerThousand": 0.042
+  },
+  "Frankfurt (Oder)": {
+   "cases": 3.0,
+   "casesPerThousand": 0.052000000000000005
+  },
+  "Prignitz": {
+   "cases": 1.0,
+   "casesPerThousand": 0.013000000000000001
+  }
  },
  "Th\u00fcringen": {
-  "Jena": 0.494,
-  "Erfurt": 0.22899999999999998,
-  "Greiz": 0.295,
-  "Saalfeld-Rudolstadt": 0.115,
-  "Weimarer Land": 0.146,
-  "Kyffh\u00e4userkreis": 0.147,
-  "Schmalkalden-Meiningen": 0.08800000000000001,
-  "Saale-Holzland-Kreis": 0.12,
-  "Wartburgkreis": 0.075,
-  "Weimar": 0.138,
-  "Eichsfeld": 0.07,
-  "Gotha": 0.044000000000000004,
-  "Saale-Orla-Kreis": 0.07400000000000001,
-  "Altenburger Land": 0.055,
-  "Ilm-Kreis": 0.047,
-  "Unstrut-Hainich-Kreis": 0.049,
-  "Gera": 0.042,
-  "Nordhausen": 0.036000000000000004,
-  "Sonneberg": 0.051,
-  "Eisenach": 0.047,
-  "Hildburghausen": 0.016,
-  "S\u00f6mmerda": 0.013999999999999999,
-  "Suhl": 0.027000000000000003
+  "Jena": {
+   "cases": 55.0,
+   "casesPerThousand": 0.494
+  },
+  "Erfurt": {
+   "cases": 49.0,
+   "casesPerThousand": 0.22899999999999998
+  },
+  "Greiz": {
+   "cases": 29.0,
+   "casesPerThousand": 0.295
+  },
+  "Eichsfeld": {
+   "cases": 16.0,
+   "casesPerThousand": 0.159
+  },
+  "Saalfeld-Rudolstadt": {
+   "cases": 12.0,
+   "casesPerThousand": 0.115
+  },
+  "Weimarer Land": {
+   "cases": 12.0,
+   "casesPerThousand": 0.146
+  },
+  "Kyffh\u00e4userkreis": {
+   "cases": 11.0,
+   "casesPerThousand": 0.147
+  },
+  "Schmalkalden-Meiningen": {
+   "cases": 11.0,
+   "casesPerThousand": 0.08800000000000001
+  },
+  "Saale-Holzland-Kreis": {
+   "cases": 10.0,
+   "casesPerThousand": 0.12
+  },
+  "Wartburgkreis": {
+   "cases": 9.0,
+   "casesPerThousand": 0.075
+  },
+  "Weimar": {
+   "cases": 9.0,
+   "casesPerThousand": 0.138
+  },
+  "Gotha": {
+   "cases": 6.0,
+   "casesPerThousand": 0.044000000000000004
+  },
+  "Saale-Orla-Kreis": {
+   "cases": 6.0,
+   "casesPerThousand": 0.07400000000000001
+  },
+  "Altenburger Land": {
+   "cases": 5.0,
+   "casesPerThousand": 0.055
+  },
+  "Ilm-Kreis": {
+   "cases": 5.0,
+   "casesPerThousand": 0.047
+  },
+  "Unstrut-Hainich-Kreis": {
+   "cases": 5.0,
+   "casesPerThousand": 0.049
+  },
+  "Gera": {
+   "cases": 4.0,
+   "casesPerThousand": 0.042
+  },
+  "Nordhausen": {
+   "cases": 3.0,
+   "casesPerThousand": 0.036000000000000004
+  },
+  "Sonneberg": {
+   "cases": 3.0,
+   "casesPerThousand": 0.051
+  },
+  "Eisenach": {
+   "cases": 2.0,
+   "casesPerThousand": 0.047
+  },
+  "Hildburghausen": {
+   "cases": 1.0,
+   "casesPerThousand": 0.016
+  },
+  "S\u00f6mmerda": {
+   "cases": 1.0,
+   "casesPerThousand": 0.013999999999999999
+  },
+  "Suhl": {
+   "cases": 1.0,
+   "casesPerThousand": 0.027000000000000003
+  }
  },
  "Saarland": {
-  "Regionalverband Saarbr\u00fccken": 0.261,
-  "Saarlouis": 0.19,
-  "St. Wendel": 0.423,
-  "Saarpfalz-Kreis": 0.245,
-  "Neunkirchen": 0.22699999999999998,
-  "Merzig-Wadern": 0.135
+  "Regionalverband Saarbr\u00fccken": {
+   "cases": 86.0,
+   "casesPerThousand": 0.261
+  },
+  "Saarlouis": {
+   "cases": 37.0,
+   "casesPerThousand": 0.19
+  },
+  "St. Wendel": {
+   "cases": 37.0,
+   "casesPerThousand": 0.423
+  },
+  "Saarpfalz-Kreis": {
+   "cases": 35.0,
+   "casesPerThousand": 0.245
+  },
+  "Neunkirchen": {
+   "cases": 30.0,
+   "casesPerThousand": 0.22699999999999998
+  },
+  "Merzig-Wadern": {
+   "cases": 14.0,
+   "casesPerThousand": 0.135
+  }
  },
  "Sachsen-Anhalt": {
-  "Halle (Saale)": 0.184,
-  "Magdeburg": 0.163,
-  "B\u00f6rde": 0.16899999999999998,
-  "Salzlandkreis": 0.08900000000000001,
-  "Burgenlandkreis": 0.083,
-  "Saalekreis": 0.076,
-  "Harz": 0.055999999999999994,
-  "Wittenberg": 0.087,
-  "Stendal": 0.08900000000000001,
-  "Anhalt-Bitterfeld": 0.055999999999999994,
-  "Dessau-Ro\u00dflau": 0.062,
-  "Mansfeld-S\u00fcdharz": 0.037000000000000005,
-  "Jerichower Land": 0.044000000000000004,
-  "Altmarkkreis Salzwedel": 0.036000000000000004
+  "Halle (Saale)": {
+   "cases": 44.0,
+   "casesPerThousand": 0.184
+  },
+  "Magdeburg": {
+   "cases": 39.0,
+   "casesPerThousand": 0.163
+  },
+  "B\u00f6rde": {
+   "cases": 29.0,
+   "casesPerThousand": 0.16899999999999998
+  },
+  "Salzlandkreis": {
+   "cases": 17.0,
+   "casesPerThousand": 0.08900000000000001
+  },
+  "Burgenlandkreis": {
+   "cases": 15.0,
+   "casesPerThousand": 0.083
+  },
+  "Saalekreis": {
+   "cases": 14.0,
+   "casesPerThousand": 0.076
+  },
+  "Harz": {
+   "cases": 12.0,
+   "casesPerThousand": 0.055999999999999994
+  },
+  "Wittenberg": {
+   "cases": 11.0,
+   "casesPerThousand": 0.087
+  },
+  "Stendal": {
+   "cases": 10.0,
+   "casesPerThousand": 0.08900000000000001
+  },
+  "Anhalt-Bitterfeld": {
+   "cases": 9.0,
+   "casesPerThousand": 0.055999999999999994
+  },
+  "Dessau-Ro\u00dflau": {
+   "cases": 5.0,
+   "casesPerThousand": 0.062
+  },
+  "Mansfeld-S\u00fcdharz": {
+   "cases": 5.0,
+   "casesPerThousand": 0.037000000000000005
+  },
+  "Jerichower Land": {
+   "cases": 4.0,
+   "casesPerThousand": 0.044000000000000004
+  },
+  "Altmarkkreis Salzwedel": {
+   "cases": 3.0,
+   "casesPerThousand": 0.036000000000000004
+  }
  },
  "Mecklenburg-Vorpommern": {
-  "Schwerin": 0.344,
-  "Vorpommern-Greifswald": 0.10099999999999999,
-  "Mecklenburgische Seenplatte": 0.08900000000000001,
-  "Rostock (Stadt)": 0.11,
-  "Ludwigslust-Parchim": 0.085,
-  "Nordwestmecklenburg": 0.10800000000000001,
-  "Rostock (Land)": 0.079,
-  "Vorpommern-R\u00fcgen": 0.053
+  "Schwerin": {
+   "cases": 33.0,
+   "casesPerThousand": 0.344
+  },
+  "Vorpommern-Greifswald": {
+   "cases": 24.0,
+   "casesPerThousand": 0.10099999999999999
+  },
+  "Mecklenburgische Seenplatte": {
+   "cases": 23.0,
+   "casesPerThousand": 0.08900000000000001
+  },
+  "Rostock (Stadt)": {
+   "cases": 23.0,
+   "casesPerThousand": 0.11
+  },
+  "Ludwigslust-Parchim": {
+   "cases": 18.0,
+   "casesPerThousand": 0.085
+  },
+  "Nordwestmecklenburg": {
+   "cases": 17.0,
+   "casesPerThousand": 0.10800000000000001
+  },
+  "Rostock (Land)": {
+   "cases": 17.0,
+   "casesPerThousand": 0.079
+  },
+  "Vorpommern-R\u00fcgen": {
+   "cases": 12.0,
+   "casesPerThousand": 0.053
+  }
  },
  "Bremen": {
-  "Bremen Stadt": 0.20800000000000002
+  "Bremen Stadt": {
+   "cases": 142.0,
+   "casesPerThousand": 0.20800000000000002
+  }
  }
 }
