@@ -1,6 +1,8 @@
 import { EventType } from '@prisma/client'
 import Model, { InternalEvent } from '../src/model/model'
 import moment from 'moment'
+import * as Params from '../src/params'
+import { CaseCounts } from '../src/case-counts/cases'
 
 function e(
   userId: number,
@@ -20,6 +22,9 @@ function e(
 }
 
 function evaluate(dailyEvents: InternalEvent[][]) {
+
+  let initial = 0
+
   for (let i = 1; i <= dailyEvents.length; i++) {
     const events = dailyEvents.slice(0, i).flatMap(x => x)
 
@@ -28,6 +33,11 @@ function evaluate(dailyEvents: InternalEvent[][]) {
     const vals = Object.values(risk.userRisk)
   //  console.log(vals.join(', '))
     const average = vals.reduce((x, c) => x + c, 0) / vals.length
+
+  //  console.log(events.length, average)
+    if(i === 1) {
+      initial = average
+    }
   //  console.log(average)
   }
 
@@ -42,7 +52,7 @@ function evaluate(dailyEvents: InternalEvent[][]) {
     aa += average
   }
 
-  console.log(aa / 20)
+  console.log(`Final: ${aa / 20}, Initial: ${initial}, Initial*ExpModel: ${Math.min(initial * Math.pow(Params.alpha, dailyEvents.length), 1)}`)
 }
 
 const model = new Model()
@@ -87,15 +97,16 @@ const model = new Model()
     evaluate(dailyEvents)
   })
 
-  const simulateClustering = (clusterGenFn: (n: number, s: number) => { u1: number, u2: number}) => {
+  const simulateClustering = (
+    clusterGenFn: (n: number, s: number) => { u1: number, u2: number},
     // Users
-    const n = 50
+    n: number = 100,
     // Interactions / day
-    const m = 15
+    m: number = 500,
     // Days
-    const d = 30
+    d: number = 30,
     // Cluster Size
-    const s = 5
+    s: number = 5) => {
     
     const users: InternalEvent[] = []
     const startDate = '2020-03-21T03:00:00+01:00'
@@ -110,7 +121,7 @@ const model = new Model()
       const day: InternalEvent[] = []
       for(let j = 0; j < m; j++) {
         const { u1, u2 } = clusterGenFn(n, s)
-        day.push(e(u1, EventType.Interaction, moment(startDate).add(i, 'd').format(), u2))
+        day.push(e(u1, EventType.Interaction, moment(startDate).add(i + 1, 'd').format(), u2))
       }
       days.push(day)
     }

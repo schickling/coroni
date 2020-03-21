@@ -36,14 +36,14 @@ export class CaseCounts {
       casesPerThousand: 0.77774
     }
   }
-     
+
   public static predict(base: RegionInfo, when: Moment, alpha: number, dataFrom: Moment = casesFrom) {
     const daysDiff = when.diff(dataFrom, 'days')
     const amp = Math.pow(alpha, daysDiff)
 
     return {
       cases: base.cases * amp,
-      casesPerThousand: base.casesPerThousand * amp
+      casesPerThousand: Math.min(base.casesPerThousand * amp, 1000)
     }
   }
 }
