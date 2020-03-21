@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start-bot": "ts-node src/bot.ts",
+    "start-bot": "ts-node-dev src/bot/index.ts",
     "generate": "prisma2 generate"
   },
   "dependencies": {
@@ -18,10 +18,12 @@
     "moment": "^2.24.0",
     "prisma2": "^2.0.0-preview024",
     "telegraf": "^3.36.0",
+    "telegraf-inline-menu": "^4.0.0",
     "ts-jest": "^25.2.1"
   },
   "devDependencies": {
     "ts-node": "^8.7.0",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }
 }
