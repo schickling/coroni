@@ -1,6 +1,11 @@
 import Telegraf, { Extra, Markup } from 'telegraf'
-import { questionHandler, locationHandler } from './utils'
+import { selectHandler, locationHandler, inputHandler } from './utils'
 import { debugMiddleware } from './middlewares'
+import GeoCode from '../case-counts/geocode'
+import { identifyRegion } from '../case-counts/regions'
+
+// TODOS
+// - make user dynamic
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
@@ -10,11 +15,53 @@ bot.catch((e: any) => {
 
 bot.use(debugMiddleware)
 
-const q3 = questionHandler(
+const q7 = selectHandler(
+  'q7',
+  'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
+  [
+    { text: 'Niemand, ich war nur zuhause', callback: async () => null },
+    { text: '> 50 (voller Supermarkt, etc)', callback: async () => null },
+    { text: '> 100 (Zug, Flugzeug, etc.)', callback: async () => null },
+  ],
+  bot,
+)
+
+const q6 = selectHandler(
+  'q6',
+  'Spürst du Krankheitssymptome?',
+  [
+    { text: 'Keine', callback: q7 },
+    { text: 'Husten', callback: q7 },
+    { text: 'Fieber', callback: q7 },
+    { text: 'Atemprobleme', callback: q7 },
+  ],
+  bot,
+)
+
+const q5 = selectHandler(
+  'q5',
+  'Danke für die Info. Wann war der letzte Tag deiner Reise?',
+  [
+    { text: 'vor weniger als 1 Woche', callback: q6 },
+    { text: 'vor 2 Wochen', callback: q6 },
+    { text: 'vor 3 Wochen', callback: q6 },
+  ],
+  bot,
+)
+
+const q4 = inputHandler(
+  'Wo warst du?',
+  async answer => {
+    return q5
+  },
+  bot,
+)
+
+const q3 = selectHandler(
   'q3',
   'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
   [
-    { text: 'Ja', callback: async () => console.log('yup') },
+    { text: 'Ja', callback: q4 },
     { text: 'Nein', callback: async () => null },
   ],
   bot,
@@ -22,14 +69,25 @@ const q3 = questionHandler(
 
 const q2Yes = locationHandler(
   'Wo ist dein Zuhause/Stadt?',
-  loc => {
-    console.log({ loc })
-    return q3
+  async loc => {
+    const geocode = new GeoCode()
+    const result = await geocode.lookup(loc.latitude, loc.longitude)
+    const region = identifyRegion(result[0])
+    return async ctx => {
+      await ctx.reply(
+        `\
+Cool, du wohnst in ${result[0].formatted_address}. \n
+State: ${region?.state}
+Region: ${region?.region}
+Cases: ${region?.cases.cases}`,
+      )
+      return q3(ctx)
+    }
   },
   bot,
 )
 
-const q1 = questionHandler(
+const q1 = selectHandler(
   'q1',
   'Bist du gerade zu Hause?',
   [
@@ -44,14 +102,12 @@ bot.start(async ctx => {
   await q1(ctx)
 })
 
-bot.help(ctx => ctx.reply('Send me a sticker'))
+// bot.help(ctx => ctx.reply('Send me a sticker'))
 
-bot.hears('hi', ctx => {
-  ctx.reply('Hey there')
-  // ctx.telegram.forwardMessage(108990193, ctx.from!.id, ctx.message!.message_id)
-})
-
-bot.hears('contact', ctx => {})
+// bot.hears('hi', ctx => {
+//   ctx.reply('Hey there')
+//   // ctx.telegram.forwardMessage(108990193, ctx.from!.id, ctx.message!.message_id)
+// })
 
 // bot.command('special', ctx => {
 //   return ctx.reply(
