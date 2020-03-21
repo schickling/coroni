@@ -1,5 +1,5 @@
-import GeoCode from '../geocode'
-import { identifyRegion } from '../regions'
+import GeoCode from '../src/case-counts/geocode'
+import { identifyRegion } from '../src/case-counts/regions'
 
 describe('Geocoding and case lookiup', () => {
   test('Happypath', async () => {

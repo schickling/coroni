@@ -9,7 +9,7 @@ export interface Cases {
   } 
 }
 
-const cases: Cases = JSON.parse(readFileSync('cases-data.json', 'utf-8'))
+const cases: Cases = JSON.parse(readFileSync(__dirname + '/cases-data.json', 'utf-8'))
 
 export class CaseCounts {
   public static find(state: string, region: string) {
