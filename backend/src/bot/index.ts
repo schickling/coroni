@@ -54,8 +54,7 @@ const q2Yes = locationHandler(
     return async (ctx: ContextMessageUpdate) => {
       await ctx.reply(
         `\
-Cool, Du wohnst in ${region.region} (${region.state}).
-Derzeit ${region.cases.cases} Fälle.`,
+Cool, Du wohnst in ${region.region} (${region.state}). Dort gibt es derzeit ${region.cases.cases} Fälle.`,
       )
       return q3(ctx)
     }
@@ -64,7 +63,7 @@ Derzeit ${region.cases.cases} Fälle.`,
 )
 
 const q3 = selectHandler(
-  'Warst Du in den letzten 2 Wochen in einem Risikogebiet?',
+  'Warst Du in den letzten 3 Wochen in einem Risikogebiet?',
   [
     [
       { text: 'Ja', callback: () => q5 },
@@ -101,7 +100,7 @@ const q6 = selectHandler(
   'Spürst Du Krankheitssymptome? 🤒',
   [
     [
-      { text: 'Keine', callback: () => q7('Keine') },
+      { text: 'Keine Symptome', callback: () => q7('Keine') },
       { text: 'Husten', callback: () => q7('Husten') },
     ],
     [
@@ -120,7 +119,7 @@ const q6 = selectHandler(
 bot.command('q6', q6)
 
 const q7MessageMap = {
-  Keine: 'nix',
+  Keine: '✅ Du hast derzeit keinerlei Symptome. Sehr gut!',
   Husten: `✅ Alles klar, Du hast Husten. Das ist zwar ein Symptom, reicht aber allein noch nicht für eine Diagnose aus.`,
   Fieber: 'hot',
   Atemprobleme: 'gasp',
@@ -186,8 +185,10 @@ const contactQuestion = (
 
   const question =
     collected === 0
-      ? `✅ Super, deine Crew besteht aus ${crewSize} Leuten. Bitte teile die entsprechenden Kontakte:`
-      : `[${collected}/${crewSize}] Super, Björn ist nun Teil deiner Crew. Nächster Kontakt bitte.`
+      ? `\n
+✅ Super, deine Crew besteht aus ${crewSize} Leuten.
+Bitte teile die entsprechenden Kontakte:`
+      : `[${collected}/${crewSize}] Super, ${contact?.first_name} ist nun Teil deiner Crew. Nächster Kontakt bitte.`
   return contactHandler(
     question,
     collected === 0 ? 'https://imgur.com/WnVaIOq.png' : undefined,
@@ -212,17 +213,17 @@ const onboardingComplete = async (
 
 Und hier nun endlich Dein Ergebnis:`)
 
-  await ctx.replyWithPhoto('https://imgur.com/vMtyhMC.png')
+  await ctx.replyWithPhoto('https://imgur.com/jicHJrF.png')
 
   await ctx.replyWithMarkdown(`\
-🤪 Deine Infektions- wahrscheinlichkeit: **25%**.
+👩‍⚕️ Deine Infektions- wahrscheinlichkeit: **3.7%**.
 
-👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **83%**.
+👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **15%**.
 
 👍 Deine Crew hat sich nicht vergrößert, super!`)
 
   await ctx.reply(
-    `Wir werden Dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder in Deiner Crew mitmacht.`,
+    `Wir werden Dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder in Deiner Crew mitmacht. 👋`,
   )
 }
 
@@ -251,7 +252,7 @@ bot.start(async ctx => {
   await start(ctx)
 })
 
-const debug = true
+const debug = false
 if (debug) {
   const devUserIds = [
     108740976, // Julian Bauer

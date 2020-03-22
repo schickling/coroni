@@ -44,7 +44,7 @@ export function selectHandler(
           list.map((a, col) => {
             const prefix =
               activeButton && activeButton[0] === row && activeButton[1] === col
-                ? '✅ '
+                ? '✓ '
                 : ''
             return Markup.callbackButton(prefix + a.text, actionKey(row, col))
           }),
