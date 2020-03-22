@@ -145,16 +145,15 @@ const contactQuestion = (
   contact?: Contact,
 ): ContextCallback => {
   if (crewSize === collected) {
-    return ctx =>
-      ctx.reply(
-        `[${collected}/${crewSize}] Glückwunsch! Mit ${contact?.first_name} ist deine Crew nun komplett. Onboarding complete. The end.`,
-      )
+    return ctx => onboardingComplete(ctx, crewSize, collected, contact!)
   }
 
   const question =
     collected === 0
       ? 'Her mit deiner Crew'
-      : `Added ${contact?.first_name}. Nächster Kontakt bitte (${collected}/${crewSize})`
+      : `Added ${
+          contact!.first_name
+        }. Nächster Kontakt bitte (${collected}/${crewSize})`
   return contactHandler(
     question,
     contact => {
@@ -164,6 +163,16 @@ const contactQuestion = (
     bot,
   )
 }
+
+const onboardingComplete = (
+  ctx: ContextMessageUpdate,
+  crewSize: number,
+  collected: number,
+  contact: Contact,
+) =>
+  ctx.reply(
+    `[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist deine Crew nun komplett. Onboarding complete. The end.`,
+  )
 
 bot.start(async ctx => {
   await ctx.reply('Welcome to Coroni 🦠')
