@@ -188,7 +188,7 @@ const onboardingComplete = async (
 
 Und hier nun endlich Dein Ergebnis:`)
 
-  await ctx.replyWithPhoto('https://i.imgur.com/ceRsYUD.png')
+  await ctx.replyWithPhoto('https://imgur.com/vMtyhMC.png')
 
   await ctx.replyWithMarkdown(`\
 🤪 Deine Infektions- wahrscheinlichkeit: **25%**.
