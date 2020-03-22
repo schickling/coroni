@@ -27,10 +27,12 @@ const notImplemented = (ctx: ContextMessageUpdate) =>
   ctx.reply('Game over. Restart with /start')
 
 const start = async (ctx: ContextMessageUpdate) => {
-  await ctx.reply('Welcome to Coroni 🦠')
+  await ctx.reply(
+    'Willkommen bei Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du zuerst ein paar Fragen beantwortest 💪',
+  )
   await q2Yes(ctx)
   // await selectHandler(
-  //   'Bist du gerade zu Hause?',
+  //   'Bist Du gerade zu Hause?',
   //   [
   //     [
   //       { text: 'Ja', callback: () => q2Yes },
@@ -42,7 +44,7 @@ const start = async (ctx: ContextMessageUpdate) => {
 }
 
 const q2Yes = locationHandler(
-  'Wo ist dein Zuhause oder Stadt?',
+  'Wo wohnst Du? Keine Sorge, nur Deine Stadt ist relevant.',
   async loc => {
     const geocode = new GeoCode()
     const result = await geocode.lookup(loc.latitude, loc.longitude)
@@ -50,7 +52,7 @@ const q2Yes = locationHandler(
     return async (ctx: ContextMessageUpdate) => {
       await ctx.reply(
         `\
-Cool, du wohnst in ${region.region} (${region.state}).
+Cool, Du wohnst in ${region.region} (${region.state}).
 Derzeit ${region.cases.cases} Fälle.`,
       )
       return q3(ctx)
@@ -60,7 +62,7 @@ Derzeit ${region.cases.cases} Fälle.`,
 )
 
 const q3 = selectHandler(
-  'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
+  'Warst Du in den letzten 2 Wochen in einem Risikogebiet?',
   [
     [
       { text: 'Ja', callback: () => q5 },
@@ -72,7 +74,7 @@ const q3 = selectHandler(
 bot.command('q3', q3)
 
 // const q4 = inputHandler(
-//   'Wo warst du?',
+//   'Wo warst Du?',
 //   async answer => {
 //     return q6
 //   },
@@ -81,7 +83,7 @@ bot.command('q3', q3)
 // bot.command('q4', q4)
 
 const q5 = selectHandler(
-  'Danke für die Info. Wann war der letzte Tag deiner Reise?',
+  'Danke für die Info. Wann war der letzte Tag Deiner Reise?',
   [
     [{ text: 'vor weniger als 1 Woche', callback: () => q6 }],
     [
@@ -94,7 +96,7 @@ const q5 = selectHandler(
 bot.command('q5', q5)
 
 const q6 = selectHandler(
-  'Spürst du Krankheitssymptome?',
+  'Spürst Du Krankheitssymptome? 🤒',
   [
     [
       { text: 'Keine', callback: () => q7 },
@@ -104,18 +106,18 @@ const q6 = selectHandler(
       { text: 'Fieber', callback: () => q7 },
       { text: 'Atemprobleme', callback: () => q7 },
     ],
-    [{ text: 'Corona!', callback: () => q7 }],
+    [{ text: 'Bei mir wurde Corona diagnostiziert!🌡️', callback: () => q7 }],
   ],
   appContext,
 )
 bot.command('q6', q6)
 
 const q7 = selectHandler(
-  'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
+  'Warst Du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
   [
-    [{ text: 'Niemand, ich war nur zuhause', callback: () => q8 }],
-    [{ text: '> 50 (voller Supermarkt, etc)', callback: () => q8 }],
-    [{ text: '> 100 (Zug, Flugzeug, etc.)', callback: () => q8 }],
+    [{ text: 'Nein, ich war nur zuhause', callback: () => q8 }],
+    [{ text: '> 50 (bspw. voller Supermarkt)', callback: () => q8 }],
+    [{ text: '> 100 (bspw. Zug, Flugzeug, etc.)', callback: () => q8 }],
   ],
   appContext,
 )
@@ -123,8 +125,8 @@ bot.command('q7', q7)
 
 const q8 = selectHandler(
   `\
-Geschafft! Das waren die Baseline-Informationen. Wie du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren.
-Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen deine “Crew”. Wie groß ist deine Crew?`,
+Geschafft! Das waren die Baseline-Informationen. Wie Du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren. Nur so können wir die Ausbreitung des Virus' verhindern.
+Es ist klar, dass Du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen Deine “Crew”. Wie groß ist Deine Crew?`,
   [
     [
       { text: '0', callback: () => contactQuestion(0, 0) },
@@ -180,21 +182,21 @@ const onboardingComplete = async (
   contact: Contact,
 ) => {
   await ctx.reply(`\
-[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist deine Crew nun komplett.
+[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist Deine Crew nun komplett.
 
-Und hier nun endlich dein Ergebnis:`)
+Und hier nun endlich Dein Ergebnis:`)
 
   await ctx.replyWithPhoto('https://i.imgur.com/ceRsYUD.png')
 
   await ctx.replyWithMarkdown(`\
 🤪 Deine Infektions- wahrscheinlichkeit: **25%**.
 
-👪 Die Wahrscheinlichkeit, dass jemand in deiner Gruppe infiziert ist: **83%**.
+👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **83%**.
 
-👍 Deine Gruppe hat sich nicht vergrößert, super!`)
+👍 Deine Crew hat sich nicht vergrößert, super!`)
 
   await ctx.reply(
-    `Wir werden dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder deiner Crew mitmacht.`,
+    `Wir werden Dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder in Deiner Crew mitmacht.`,
   )
 }
 
