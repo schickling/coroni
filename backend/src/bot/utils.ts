@@ -5,6 +5,17 @@ type PromiseOrConst<T> = Promise<T> | T
 export type ContextCallback = (ctx: ContextMessageUpdate) => PromiseOrConst<any>
 export type Callback<T> = (arg: T) => PromiseOrConst<ContextCallback>
 
+export type Session = {
+  [userId: number]: {
+    [sessionKey: string]: boolean
+  }
+}
+
+export type AppContext = {
+  bot: Telegraf<ContextMessageUpdate>
+  session: Session
+}
+
 type Answer = {
   text: string
   callback: Callback<void>
@@ -14,7 +25,7 @@ export function selectHandler(
   actionPrefix: string,
   question: string,
   answers: Answer[][],
-  bot: Telegraf<ContextMessageUpdate>,
+  appContext: AppContext,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return ctx => {
     const actionKey = (row: number, col: number) =>
@@ -36,7 +47,7 @@ export function selectHandler(
     let questionAsked = false
     for (const row of answers.keys()) {
       for (const col of answers[row].keys())
-        bot.action(actionKey(row, col), async actionCtx => {
+        appContext.bot.action(actionKey(row, col), async actionCtx => {
           if (questionAsked) {
             console.log(`Already asked question "${question}"`)
             return
@@ -54,13 +65,13 @@ export function selectHandler(
 export function contactHandler(
   question: string,
   callback: Callback<Contact>,
-  bot: Telegraf<ContextMessageUpdate>,
+  appContext: AppContext,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return async ctx => {
     let questionAsked = false
     let message: Message
 
-    bot.on('contact', async (contactCtx, next) => {
+    appContext.bot.on('contact', async (contactCtx, next) => {
       if (questionAsked) {
         console.log(`Already asked question "${question}"`)
         return next && next()
@@ -80,11 +91,11 @@ export function contactHandler(
 export function inputHandler(
   question: string,
   callback: Callback<string>,
-  bot: Telegraf<ContextMessageUpdate>,
+  appContext: AppContext,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return ctx => {
     let questionAsked = false
-    bot.on('message', async (messageCtx, next) => {
+    appContext.bot.on('message', async (messageCtx, next) => {
       if (questionAsked) {
         console.log(`Already asked question "${question}"`)
         return next && next()
@@ -101,12 +112,12 @@ export function inputHandler(
 export function locationHandler(
   question: string,
   callback: Callback<Location>,
-  bot: Telegraf<ContextMessageUpdate>,
+  appContext: AppContext,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return async ctx => {
     let questionAsked = false
     let message: Message
-    bot.on('location', async (locationCtx, next) => {
+    appContext.bot.on('location', async (locationCtx, next) => {
       if (questionAsked) {
         console.log(`Already asked question "${question}"`)
         return next && next()
@@ -116,7 +127,10 @@ export function locationHandler(
       // https://core.telegram.org/bots/api#updating-messages
       // From the docs: Please note, that it is currently only possible to edit messages
       // without reply_markup or with inline keyboards.
-      await bot.telegram.deleteMessage(message.chat.id, message.message_id)
+      await appContext.bot.telegram.deleteMessage(
+        message.chat.id,
+        message.message_id,
+      )
       // await ctx.reply(question)
 
       const fn = await callback(locationCtx.update.message!.location!)

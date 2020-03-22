@@ -16,6 +16,8 @@ import { Contact } from 'telegraf/typings/telegram-types'
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
+const appContext = { bot, session: {} }
+
 bot.catch((e: any) => {
   console.log('telegraf error', e.response, e.parameters, e.on || e)
 })
@@ -31,7 +33,7 @@ const q1 = selectHandler(
       { text: 'Nein', callback: () => () => null },
     ],
   ],
-  bot,
+  appContext,
 )
 
 const q2Yes = locationHandler(
@@ -51,7 +53,7 @@ Cases: ${region?.cases.cases}`,
       return q3(ctx)
     }
   },
-  bot,
+  appContext,
 )
 
 const q3 = selectHandler(
@@ -63,7 +65,7 @@ const q3 = selectHandler(
       { text: 'Nein', callback: () => () => null },
     ],
   ],
-  bot,
+  appContext,
 )
 
 const q4 = inputHandler(
@@ -71,7 +73,7 @@ const q4 = inputHandler(
   async answer => {
     return q5
   },
-  bot,
+  appContext,
 )
 
 const q5 = selectHandler(
@@ -84,7 +86,7 @@ const q5 = selectHandler(
       { text: 'vor 3 Wochen', callback: () => q6 },
     ],
   ],
-  bot,
+  appContext,
 )
 
 const q6 = selectHandler(
@@ -100,7 +102,7 @@ const q6 = selectHandler(
       { text: 'Atemprobleme', callback: () => q7 },
     ],
   ],
-  bot,
+  appContext,
 )
 
 const q7 = selectHandler(
@@ -111,7 +113,7 @@ const q7 = selectHandler(
     [{ text: '> 50 (voller Supermarkt, etc)', callback: () => q8 }],
     [{ text: '> 100 (Zug, Flugzeug, etc.)', callback: () => q8 }],
   ],
-  bot,
+  appContext,
 )
 
 const q8 = selectHandler(
@@ -136,7 +138,7 @@ Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen
       { text: 'mehr', callback: () => contactQuestion(10, 0) },
     ],
   ],
-  bot,
+  appContext,
 )
 
 const contactQuestion = (
@@ -160,7 +162,7 @@ const contactQuestion = (
       console.log({ contact })
       return contactQuestion(crewSize, collected + 1, contact)
     },
-    bot,
+    appContext,
   )
 }
 
