@@ -206,7 +206,7 @@ Und hier nun endlich Dein Ergebnis:`)
 
 const checkin = async (ctx: ContextMessageUpdate) => {
   await selectHandler(
-    'Hey! Es ist Zeit für dein tägliches Corona-Update. Wie fühlst du dich heute?',
+    'Hey! Es ist Zeit für Dein tägliches Corona-Update. Wie fühlst Du dich heute?',
     [
       [
         { text: 'Keine Symptome', callback: () => q7 },
