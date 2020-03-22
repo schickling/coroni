@@ -31,3 +31,24 @@
 //   ctx.answerCbQuery('answer')
 //   // rmw.setSpecific(ctx, 'a')
 // })
+
+// bot.help(ctx => ctx.reply('Send me a sticker'))
+
+// bot.hears('hi', ctx => {
+//   ctx.reply('Hey there')
+//   // ctx.telegram.forwardMessage(108990193, ctx.from!.id, ctx.message!.message_id)
+// })
+
+// bot.command('special', ctx => {
+//   return ctx.reply(
+//     'Special buttons keyboard',
+//     Extra.markup((markup: Markup) => {
+//       return markup
+//         .resize()
+//         .keyboard([
+//           markup.contactRequestButton('contact', false),
+//           markup.locationRequestButton('location', false),
+//         ])
+//     }),
+//   )
+// })
