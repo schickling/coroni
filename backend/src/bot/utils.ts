@@ -1,11 +1,13 @@
 import Telegraf, { ContextMessageUpdate, Extra, Markup } from 'telegraf'
-import { Location, Message } from 'telegraf/typings/telegram-types'
+import { Location, Message, Contact } from 'telegraf/typings/telegram-types'
 
-type Callback = () => (ctx: ContextMessageUpdate) => Promise<any>
+type PromiseOrConst<T> = Promise<T> | T
+export type ContextCallback = (ctx: ContextMessageUpdate) => PromiseOrConst<any>
+export type Callback<T> = (arg: T) => PromiseOrConst<ContextCallback>
 
 type Answer = {
   text: string
-  callback: (ctx: ContextMessageUpdate) => Promise<any>
+  callback: Callback<void>
 }
 
 export function selectHandler(
@@ -41,18 +43,43 @@ export function selectHandler(
           }
           questionAsked = true
           await actionCtx.editMessageText(question, renderMarkup([row, col]))
-          await answers[row][col].callback(actionCtx)
+          const fn = await answers[row][col].callback()
+          await fn(actionCtx)
         })
     }
     return ctx.reply(question, renderMarkup())
   }
 }
 
+export function contactHandler(
+  question: string,
+  callback: Callback<Contact>,
+  bot: Telegraf<ContextMessageUpdate>,
+): (ctx: ContextMessageUpdate) => Promise<any> {
+  return async ctx => {
+    let questionAsked = false
+    let message: Message
+
+    bot.on('contact', async (contactCtx, next) => {
+      if (questionAsked) {
+        console.log(`Already asked question "${question}"`)
+        return next && next()
+      }
+      questionAsked = true
+
+      const fn = await callback(contactCtx.update.message!.contact!)
+      await fn(contactCtx)
+
+      return next && next()
+    })
+    message = await ctx.reply(question)
+    return message
+  }
+}
+
 export function inputHandler(
   question: string,
-  callback: (
-    answer: string,
-  ) => Promise<(ctx: ContextMessageUpdate) => Promise<any>>,
+  callback: Callback<string>,
   bot: Telegraf<ContextMessageUpdate>,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return ctx => {
@@ -73,9 +100,7 @@ export function inputHandler(
 
 export function locationHandler(
   question: string,
-  callback: (
-    loc: Location,
-  ) => Promise<(ctx: ContextMessageUpdate) => Promise<any>>,
+  callback: Callback<Location>,
   bot: Telegraf<ContextMessageUpdate>,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return async ctx => {
