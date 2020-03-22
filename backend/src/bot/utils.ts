@@ -17,28 +17,34 @@ export function selectHandler(
   return ctx => {
     const actionKey = (row: number, col: number) =>
       `${actionPrefix}-${row}-${col}`
+
+    const renderMarkup = (activeButton?: [number, number]) =>
+      Markup.inlineKeyboard(
+        answers.map((list, row) =>
+          list.map((a, col) => {
+            const prefix =
+              activeButton && activeButton[0] === row && activeButton[1] === col
+                ? '✅ '
+                : ''
+            return Markup.callbackButton(prefix + a.text, actionKey(row, col))
+          }),
+        ),
+      ).extra()
+
     let questionAsked = false
     for (const row of answers.keys()) {
       for (const col of answers[row].keys())
-        bot.action(actionKey(row, col), actionCtx => {
+        bot.action(actionKey(row, col), async actionCtx => {
           if (questionAsked) {
             console.log(`Already asked question "${question}"`)
             return
           }
           questionAsked = true
-          answers[row][col].callback(actionCtx)
+          await actionCtx.editMessageText(question, renderMarkup([row, col]))
+          await answers[row][col].callback(actionCtx)
         })
     }
-    return ctx.reply(
-      question,
-      Markup.inlineKeyboard(
-        answers.map((list, row) =>
-          list.map((a, col) =>
-            Markup.callbackButton(a.text, actionKey(row, col)),
-          ),
-        ),
-      ).extra(),
-    )
+    return ctx.reply(question, renderMarkup())
   }
 }
 
