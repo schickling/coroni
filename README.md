@@ -1,4 +1,4 @@
-# coroni
+# Coroni Telegram Bot 🦠
 
 [Add Telegram Bot](http://t.me/coroni_bot)
 
