@@ -38,7 +38,7 @@ const q1 = selectHandler(
 )
 
 const q2Yes = locationHandler(
-  'Wo ist dein Zuhause/Stadt?',
+  'Wo ist dein Zuhause oder Stadt?',
   async loc => {
     const geocode = new GeoCode()
     const result = await geocode.lookup(loc.latitude, loc.longitude)
