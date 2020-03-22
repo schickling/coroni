@@ -110,7 +110,6 @@ const createStyleSheet = function() {
       'border-color': (elem: any) => elem.data('bgcolor'),
       'background-color': (elem: any) => elem.data('bgcolor'),
       'border-width': 5,
-      'border-opacity': 0.5,
       'background-image': (elem: any) => elem.data('image')
     })
   .selector('edge')
