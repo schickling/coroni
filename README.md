@@ -1,3 +1,5 @@
+![](https://i.imgur.com/n3BZvGo.png)
+
 # Coroni Telegram Bot 🦠
 
 [Add Telegram Bot](http://t.me/coroni_bot)
