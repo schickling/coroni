@@ -30,7 +30,7 @@ const notImplemented = (ctx: ContextMessageUpdate) =>
   ctx.reply('Game over. Restart with /start')
 
 const start = async (ctx: ContextMessageUpdate) => {
-  await ctx.reply('Willkommen bei Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du ein paar Fragen beantwortest 💪')
+  await ctx.reply('Willkommen bei Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du zuerst ein paar Fragen beantwortest 💪')
   await q2Yes(ctx)
   // await selectHandler(
   //   'Bist Du gerade zu Hause?',
@@ -128,8 +128,8 @@ bot.command('q7', q7)
 
 const q8 = selectHandler(
   `\
-Geschafft! Das waren die Baseline-Informationen. Wie du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren.
-Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen deine “Crew”. Wie groß ist deine Crew?`,
+Geschafft! Das waren die Baseline-Informationen. Wie Du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren. Nur so können wir die Ausbreitung des Virus' verhindern.
+Es ist klar, dass Du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen Deine “Crew”. Wie groß ist Deine Crew?`,
   [
     [
       { text: '0', callback: () => contactQuestion(0, 0) },
