@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -35,14 +35,9 @@ model Event {
 enum EventType {
   // Having travelled in a high risk area before
   HighRiskArea
-  // Moving to another part of Germany.
-  Location
-  // Social interaction with another user
-  Interaction
-  // Developed Sympthoms
-  Sympthoms
-  // Diagnosed Sick
-  DiagnosedSick
-  // Marker inserted in past timeline when covid is diagnosed, to ease model calculation.
-  MarkerSick 
+  // Moving to another part of Germany. Location
+  // Social interaction with another user Interaction
+  // Developed Sympthoms Sympthoms
+  // Diagnosed Sick DiagnosedSick
+  // Marker inserted in past timeline when covid is diagnosed, to ease model calculation. MarkerSick
 }

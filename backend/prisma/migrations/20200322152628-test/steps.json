@@ -1,0 +1,16 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateEnum",
+      "enum": "EventType",
+      "createdValues": [
+        "Location",
+        "Interaction",
+        "Sympthoms",
+        "DiagnosedSick",
+        "MarkerSick"
+      ]
+    }
+  ]
+}
