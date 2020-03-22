@@ -6,4 +6,4 @@ export const incubationPeriod = 11 // days
 export const alpha = 1.228 
 
 // Contact transmission chance per interaction
-export const gamma = 0.019
+export const gamma = 0.5

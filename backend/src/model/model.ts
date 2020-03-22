@@ -13,7 +13,11 @@ export interface InternalEvent {
   timestamp: Moment
 }
 
-interface UserDict { [id: number]: number }
+export interface UserDict { [id: number]: number }
+export interface Interactions { [id: number]: {
+    [id: number]: number
+  }
+}
 
 export default class Model {
   constructor() {
@@ -48,6 +52,7 @@ export default class Model {
       dict[user] = 0
       return dict
     }, { } as UserDict)
+    const interactionAgg: Interactions = { }
 
     const grouped = Object.values(_.groupBy(events, 'unix'))
 
@@ -112,6 +117,16 @@ export default class Model {
           continue
         }
 
+        // TODO: Interactions should not be forever
+        if(interactionAgg[interaction.u1] === undefined) {
+          interactionAgg[interaction.u1] = { } 
+        }
+        if(interactionAgg[interaction.u1][interaction.u2] === undefined) {
+          interactionAgg[interaction.u1][interaction.u2] = 1
+        } else {
+          interactionAgg[interaction.u1][interaction.u2] = interactionAgg[interaction.u1][interaction.u2] + 1
+        }
+
         const p1 = p[interaction.u1] * Params.gamma
         const p2 = p[interaction.u2] * Params.gamma
 
@@ -122,6 +137,6 @@ export default class Model {
       }
     }
 
-    return { userRisk: p }
+    return { userRisk: p, interactions: interactionAgg }
   }
 }

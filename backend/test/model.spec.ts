@@ -3,6 +3,8 @@ import Model, { InternalEvent } from '../src/model/model'
 import moment from 'moment'
 import * as Params from '../src/params'
 import { CaseCounts } from '../src/case-counts/cases'
+import { renderGraph, renderLocalGroup } from '../src/rendering'
+import { modelResultToGraphInput } from '../src/modelRender'
 
 function e(
   userId: number,
@@ -21,7 +23,7 @@ function e(
   }
 }
 
-function evaluate(dailyEvents: InternalEvent[][]) {
+async function evaluate(dailyEvents: InternalEvent[][], name: string) {
 
   let initial = 0
 
@@ -31,7 +33,7 @@ function evaluate(dailyEvents: InternalEvent[][]) {
     const risk = model.calculateInternal(events)
 
     const vals = Object.values(risk.userRisk)
-  //  console.log(vals.join(', '))
+   // console.log(vals.join(', '))
     const average = vals.reduce((x, c) => x + c, 0) / vals.length
 
   //  console.log(events.length, average)
@@ -43,22 +45,22 @@ function evaluate(dailyEvents: InternalEvent[][]) {
 
   const events = dailyEvents.flatMap(x => x)
 
-  let aa = 0;
+  const risk = model.calculateInternal(events)
+  const vals = Object.values(risk.userRisk)
+  const average = vals.reduce((x, c) => x + c, 0) / vals.length
 
-  for(let i = 0; i < 20; i++) {
-    const risk = model.calculateInternal(events)
-    const vals = Object.values(risk.userRisk)
-    const average = vals.reduce((x, c) => x + c, 0) / vals.length
-    aa += average
-  }
+  const { nodes, edges } = modelResultToGraphInput(risk.userRisk, risk.interactions)
 
-  console.log(`Final: ${aa / 20}, Initial: ${initial}, Initial*ExpModel: ${Math.min(initial * Math.pow(Params.alpha, dailyEvents.length), 1)}`)
+  await renderGraph(nodes, edges, `${name}.png`)
+  await renderLocalGroup(nodes, edges, `${nodes[0].id}`, `${name}_local.png`)
+
+  console.log(`${name}: ${average}, Initial: ${initial}, Initial*ExpModel: ${Math.min(initial * Math.pow(Params.alpha, dailyEvents.length), 1)}`)
 }
 
 const model = new Model()
 
  describe('Model "tests".', () => {
-    test('Should propagate an infection backwards', () => {
+    test('Should propagate an infection backwards', async () => {
 
     // From this test, we expect a similar rating through days 1-4 for both clusters. 
     // On day 4, the risk for 1 and 3 should be slightly higher
@@ -94,15 +96,16 @@ const model = new Model()
       ],
     ]
 
-    evaluate(dailyEvents)
-  })
+    await evaluate(dailyEvents, 'infection')
+  }, 60000)
 
-  const simulateClustering = (
+  const simulateClustering = async (
     clusterGenFn: (n: number, s: number) => { u1: number, u2: number},
+    name: string,
     // Users
     n: number = 100,
     // Interactions / day
-    m: number = 500,
+    m: number = 10,
     // Days
     d: number = 30,
     // Cluster Size
@@ -126,20 +129,20 @@ const model = new Model()
       days.push(day)
     }
 
-    evaluate([users, ...days])
+    await evaluate([users, ...days], name)
   }
 
-  test('Randomized contacts', () => {
+  test('Randomized contacts', async () => {
     const clusterFn = (n: number, s: number) => {
       const u1 = Math.floor(Math.random() * n)
       const u2 = Math.floor(Math.random() * n)
       return { u1, u2 }
     }
 
-    simulateClustering(clusterFn)
-  })
+    await simulateClustering(clusterFn, "randomized")
+  }, 60000)
 
-  test('Restricted Contacts', () => {
+  test('Restricted Contacts', async () => {
 
     const clusterFn = (n: number, s: number) => {
       const u1 = Math.floor(Math.random() * n) 
@@ -147,10 +150,10 @@ const model = new Model()
       return { u1, u2 }
     }
 
-    simulateClustering(clusterFn)
-  })
+    await simulateClustering(clusterFn, "restricted")
+  }, 60000)
 
-  test('Strictly clustered Contacts', () => {
+  test('Strictly clustered Contacts', async () => {
     const clusterFn = (n: number, s: number) => {
       let cluster = Math.floor(Math.random() * n)
       cluster = cluster - (cluster % s)
@@ -159,6 +162,6 @@ const model = new Model()
       return { u1, u2 }
     }
 
-    simulateClustering(clusterFn)
-  })
+    await simulateClustering(clusterFn, "strictly_restricted")
+  }, 60000)
 })
