@@ -18,7 +18,7 @@ type Answer = {
 }
 
 export function wipeUserSession(
-  sessionId: number,
+  sessionId: Date,
   ctx: ContextMessageUpdate,
   appContext: AppContext,
 ) {
@@ -34,8 +34,9 @@ export function selectHandler(
   return ctx => {
     const userId = ctx.from!.id
     const actionPrefix = hash(question)
+    const sessionId = appContext.session.sessionId(userId)
     const actionKey = (row: number, col: number) =>
-      `${actionPrefix}-${userId}-${row}-${col}`
+      `${actionPrefix}-${userId}-${sessionId.getTime()}-${row}-${col}`
 
     const renderMarkup = (activeButton?: [number, number]) =>
       Markup.inlineKeyboard(
@@ -52,12 +53,11 @@ export function selectHandler(
 
     for (const row of answers.keys()) {
       for (const col of answers[row].keys()) {
-        const originalSessionId = appContext.session.sessionId(userId)
         appContext.bot.action(actionKey(row, col), async actionCtx => {
           await appContext.session.runOnce(
             userId,
             actionPrefix,
-            originalSessionId,
+            undefined,
             actionCtx,
             async () => {
               await actionCtx.editMessageText(

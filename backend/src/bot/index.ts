@@ -18,10 +18,11 @@ const bot = new Telegraf(process.env.BOT_TOKEN!)
 const appContext = { bot, session: new Session() }
 
 bot.catch((e: any) => {
-  console.log('telegraf error', e.response, e.parameters, e.on || e)
+  console.log('telegraf error:')
+  console.dir(e, { depth: null, colors: true })
 })
 
-bot.use(debugMiddleware)
+// bot.use(debugMiddleware)
 
 const notImplemented = (ctx: ContextMessageUpdate) =>
   ctx.reply('Game over. Restart with /start')
@@ -222,7 +223,7 @@ const checkin = async (ctx: ContextMessageUpdate) => {
 bot.command('/checkin', checkin)
 
 bot.start(async ctx => {
-  wipeUserSession(Math.random(), ctx, appContext)
+  wipeUserSession(new Date(), ctx, appContext)
   await start(ctx)
 })
 

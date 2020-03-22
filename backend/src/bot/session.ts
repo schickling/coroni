@@ -3,7 +3,7 @@ import { PromiseOrConst } from './utils'
 
 type SessionData = {
   [userId: number]: {
-    sessionId: number
+    sessionId: Date
     store: {
       [storageKey: string]: boolean
     }
@@ -20,12 +20,16 @@ export class Session {
   async runOnce(
     userId: number,
     actionPrefix: string,
-    originalSessionId: number,
+    originalSessionId: Date | undefined,
     ctx: ContextMessageUpdate | undefined,
     fn: () => PromiseOrConst<any>,
   ) {
-    if (this.sessionId(userId) !== originalSessionId) {
-      console.log('session expired for', userId)
+    if (originalSessionId && this.sessionId(userId) !== originalSessionId) {
+      console.log('session expired for', {
+        userId,
+        originalSessionId,
+        sessionId: this.sessionId(userId),
+      })
       return
     }
     if (this.lazyGet(userId, actionPrefix)) {
@@ -40,7 +44,7 @@ export class Session {
     await fn()
   }
 
-  wipe(userId: number, sessionId: number) {
+  wipe(userId: number, sessionId: Date) {
     this.data[userId] = {
       sessionId: sessionId,
       store: {},
