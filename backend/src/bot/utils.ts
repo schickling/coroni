@@ -19,12 +19,30 @@ export class Session {
     this.data = {}
   }
 
-  lazyGet(userId: number, actionPrefix: string): boolean {
+  async runOnce(
+    userId: number,
+    actionPrefix: string,
+    ctx: ContextMessageUpdate | undefined,
+    fn: () => PromiseOrConst<any>,
+  ) {
+    if (this.lazyGet(userId, actionPrefix)) {
+      // TODO adjust this logic for one-time uses (e.g. location/contact sharing) to avoid logging
+      console.log(
+        `User ${userId} already asked question for hash "${actionPrefix}"`,
+      )
+      await ctx?.answerCbQuery('Already answered before.')
+      return
+    }
+    this.lazySet(userId, actionPrefix)
+    await fn()
+  }
+
+  private lazyGet(userId: number, actionPrefix: string): boolean {
     this.lazyInit(userId, actionPrefix)
     return this.data[userId][actionPrefix]
   }
 
-  lazySet(userId: number, actionPrefix: string) {
+  private lazySet(userId: number, actionPrefix: string) {
     this.lazyInit(userId, actionPrefix)
     this.data[userId][actionPrefix] = true
   }
@@ -89,14 +107,19 @@ export function selectHandler(
     for (const row of answers.keys()) {
       for (const col of answers[row].keys())
         appContext.bot.action(actionKey(row, col), async actionCtx => {
-          if (appContext.session.lazyGet(userId, actionPrefix)) {
-            console.log(`Already asked question "${question}"`)
-            return
-          }
-          appContext.session.lazySet(userId, actionPrefix)
-          await actionCtx.editMessageText(question, renderMarkup([row, col]))
-          const fn = await answers[row][col].callback()
-          await fn(actionCtx)
+          await appContext.session.runOnce(
+            userId,
+            actionPrefix,
+            actionCtx,
+            async () => {
+              await actionCtx.editMessageText(
+                question,
+                renderMarkup([row, col]),
+              )
+              const fn = await answers[row][col].callback()
+              await fn(actionCtx)
+            },
+          )
         })
     }
     return ctx.reply(question, renderMarkup())
@@ -113,14 +136,15 @@ export function contactHandler(
     const actionPrefix = hash(question)
 
     appContext.bot.on('contact', async (contactCtx, next) => {
-      if (appContext.session.lazyGet(userId, actionPrefix)) {
-        console.log(`Already asked question "${question}"`)
-        return next && next()
-      }
-      appContext.session.lazySet(userId, actionPrefix)
-
-      const fn = await callback(contactCtx.update.message!.contact!)
-      await fn(contactCtx)
+      await appContext.session.runOnce(
+        userId,
+        actionPrefix,
+        undefined,
+        async () => {
+          const fn = await callback(contactCtx.update.message!.contact!)
+          await fn(contactCtx)
+        },
+      )
 
       return next && next()
     })
@@ -137,13 +161,16 @@ export function inputHandler(
     const userId = ctx.from!.id
     const actionPrefix = hash(question)
     appContext.bot.on('message', async (messageCtx, next) => {
-      if (appContext.session.lazyGet(userId, actionPrefix)) {
-        console.log(`Already asked question "${question}"`)
-        return next && next()
-      }
-      appContext.session.lazySet(userId, actionPrefix)
-      const fn = await callback(messageCtx.update.message!.text!)
-      await fn(messageCtx)
+      await appContext.session.runOnce(
+        userId,
+        actionPrefix,
+        messageCtx,
+        async () => {
+          const fn = await callback(messageCtx.update.message!.text!)
+          await fn(messageCtx)
+        },
+      )
+
       return next && next()
     })
     return ctx.reply(question)
@@ -160,23 +187,26 @@ export function locationHandler(
     const actionPrefix = hash(question)
     let message: Message
     appContext.bot.on('location', async (locationCtx, next) => {
-      if (appContext.session.lazyGet(userId, actionPrefix)) {
-        console.log(`Already asked question "${question}"`)
-        return next && next()
-      }
-      appContext.session.lazySet(userId, actionPrefix)
+      await appContext.session.runOnce(
+        userId,
+        actionPrefix,
+        undefined,
+        async () => {
+          if (message) {
+            // https://core.telegram.org/bots/api#updating-messages
+            // From the docs: Please note, that it is currently only possible to edit messages
+            // without reply_markup or with inline keyboards.
+            await appContext.bot.telegram.deleteMessage(
+              message.chat.id,
+              message.message_id,
+            )
+            // await ctx.reply(question)
+          }
 
-      // https://core.telegram.org/bots/api#updating-messages
-      // From the docs: Please note, that it is currently only possible to edit messages
-      // without reply_markup or with inline keyboards.
-      await appContext.bot.telegram.deleteMessage(
-        message.chat.id,
-        message.message_id,
+          const fn = await callback(locationCtx.update.message!.location!)
+          await fn(locationCtx)
+        },
       )
-      // await ctx.reply(question)
-
-      const fn = await callback(locationCtx.update.message!.location!)
-      await fn(locationCtx)
       return next && next()
     })
     message = await ctx.reply(

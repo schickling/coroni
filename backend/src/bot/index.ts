@@ -13,9 +13,6 @@ import GeoCode from '../case-counts/geocode'
 import { identifyRegion } from '../case-counts/regions'
 import { Contact } from 'telegraf/typings/telegram-types'
 
-// TODOS
-// - make user dynamic
-
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
 const appContext = { bot, session: new Session() }
@@ -107,9 +104,7 @@ const q6 = selectHandler(
       { text: 'Fieber', callback: () => q7 },
       { text: 'Atemprobleme', callback: () => q7 },
     ],
-    [
-      { text: 'Corona!', callback: () => q7 },
-    ],
+    [{ text: 'Corona!', callback: () => q7 }],
   ],
   appContext,
 )
@@ -176,6 +171,8 @@ const contactQuestion = (
   )
 }
 
+// TODO forwarding step missing
+
 const onboardingComplete = async (
   ctx: ContextMessageUpdate,
   crewSize: number,
@@ -201,9 +198,42 @@ Und hier nun endlich dein Ergebnis:`)
   )
 }
 
+const checkin = async (ctx: ContextMessageUpdate) => {
+  await selectHandler(
+    'Hey! Es ist Zeit für dein tägliches Corona-Update. Wie fühlst du dich heute?',
+    [
+      [
+        { text: 'Keine Symptome', callback: () => q7 },
+        { text: 'Husten', callback: () => q7 },
+      ],
+      [
+        { text: 'Fieber', callback: () => q7 },
+        { text: 'Atemprobleme', callback: () => q7 },
+      ],
+      [{ text: 'Corona!', callback: () => q7 }],
+    ],
+    appContext,
+  )(ctx)
+}
+
+bot.command('/checkin', checkin)
+
 bot.start(async ctx => {
   wipeUserSession(ctx, appContext)
   await start(ctx)
 })
+
+const debug = true
+if (debug) {
+  const devUserIds = [
+    108740976, // Julian Bauer
+    67786295, // Johannes Schickling
+    108990193, // Emanuel Joebstl
+    1085659828, // Julian Specht
+  ]
+  for (const userId of devUserIds) {
+    bot.telegram.sendMessage(userId, 'Server restarted. Please run /start')
+  }
+}
 
 bot.launch()
