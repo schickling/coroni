@@ -161,10 +161,8 @@ const contactQuestion = (
 
   const question =
     collected === 0
-      ? 'Her mit deiner Crew'
-      : `Added ${
-          contact!.first_name
-        }. Nächster Kontakt bitte (${collected}/${crewSize})`
+      ? `✅ Super, deine Crew besteht aus ${crewSize} Leuten. Wer ist dabei?`
+      : `[${collected}/${crewSize}] Super, Björn ist nun Teil deiner Crew. Nächster Kontakt bitte.`
   return contactHandler(
     question,
     contact => {
