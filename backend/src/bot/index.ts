@@ -30,7 +30,7 @@ const notImplemented = (ctx: ContextMessageUpdate) =>
   ctx.reply('Game over. Restart with /start')
 
 const start = async (ctx: ContextMessageUpdate) => {
-  await ctx.reply('Welcome to Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du ein paar Fragen beantwortest 💪')
+  await ctx.reply('Willkommen bei Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du ein paar Fragen beantwortest 💪')
   await q2Yes(ctx)
   // await selectHandler(
   //   'Bist Du gerade zu Hause?',
@@ -97,7 +97,7 @@ const q5 = selectHandler(
 bot.command('q5', q5)
 
 const q6 = selectHandler(
-  'Spürst Du Krankheitssymptome?',
+  'Spürst Du Krankheitssymptome? 🤒',
   [
     [
       { text: 'Keine', callback: () => q7 },
@@ -108,7 +108,7 @@ const q6 = selectHandler(
       { text: 'Atemprobleme', callback: () => q7 },
     ],
     [
-      { text: 'Bei mir wurde Corona diagnostiziert!', callback: () => q7 },
+      { text: 'Bei mir wurde Corona diagnostiziert!🌡️', callback: () => q7 },
     ],
   ],
   appContext,
