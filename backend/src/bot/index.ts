@@ -31,16 +31,17 @@ const notImplemented = (ctx: ContextMessageUpdate) =>
 
 const start = async (ctx: ContextMessageUpdate) => {
   await ctx.reply('Welcome to Coroni 🦠')
-  await selectHandler(
-    'Bist du gerade zu Hause?',
-    [
-      [
-        { text: 'Ja', callback: () => q2Yes },
-        { text: 'Nein', callback: () => notImplemented },
-      ],
-    ],
-    appContext,
-  )(ctx)
+  await q2Yes(ctx)
+  // await selectHandler(
+  //   'Bist du gerade zu Hause?',
+  //   [
+  //     [
+  //       { text: 'Ja', callback: () => q2Yes },
+  //       { text: 'Nein (*)', callback: () => notImplemented },
+  //     ],
+  //   ],
+  //   appContext,
+  // )(ctx)
 }
 
 const q2Yes = locationHandler(
@@ -48,14 +49,12 @@ const q2Yes = locationHandler(
   async loc => {
     const geocode = new GeoCode()
     const result = await geocode.lookup(loc.latitude, loc.longitude)
-    const region = identifyRegion(result[0])
+    const region = identifyRegion(result[0])!
     return async (ctx: ContextMessageUpdate) => {
       await ctx.reply(
         `\
-Cool, du wohnst in ${result[0].formatted_address}. \n
-State: ${region?.state}
-Region: ${region?.region}
-Cases: ${region?.cases.cases}`,
+Cool, du wohnst in ${region.region} (${region.state}).
+Derzeit ${region.cases.cases} Fälle.`,
       )
       return q3(ctx)
     }
@@ -67,7 +66,7 @@ const q3 = selectHandler(
   'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
   [
     [
-      { text: 'Ja', callback: () => q4 },
+      { text: 'Ja', callback: () => q5 },
       { text: 'Nein', callback: () => q6 },
     ],
   ],
@@ -75,14 +74,14 @@ const q3 = selectHandler(
 )
 bot.command('q3', q3)
 
-const q4 = inputHandler(
-  'Wo warst du?',
-  async answer => {
-    return q5
-  },
-  appContext,
-)
-bot.command('q4', q4)
+// const q4 = inputHandler(
+//   'Wo warst du?',
+//   async answer => {
+//     return q6
+//   },
+//   appContext,
+// )
+// bot.command('q4', q4)
 
 const q5 = selectHandler(
   'Danke für die Info. Wann war der letzte Tag deiner Reise?',
@@ -107,6 +106,9 @@ const q6 = selectHandler(
     [
       { text: 'Fieber', callback: () => q7 },
       { text: 'Atemprobleme', callback: () => q7 },
+    ],
+    [
+      { text: 'Corona!', callback: () => q7 },
     ],
   ],
   appContext,
