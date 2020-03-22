@@ -226,25 +226,25 @@ Und hier nun endlich Dein Ergebnis:`)
   )
 }
 
-const checkin = async (ctx: ContextMessageUpdate) => {
-  await selectHandler(
-    'Hey! Es ist Zeit für dein tägliches Corona-Update. Wie fühlst du dich heute?',
-    [
-      [
-        { text: 'Keine Symptome', callback: () => q7 },
-        { text: 'Husten', callback: () => q7 },
-      ],
-      [
-        { text: 'Fieber', callback: () => q7 },
-        { text: 'Atemprobleme', callback: () => q7 },
-      ],
-      [{ text: 'Corona!', callback: () => q7 }],
-    ],
-    appContext,
-  )(ctx)
-}
+// const checkin = async (ctx: ContextMessageUpdate) => {
+//   await selectHandler(
+//     'Hey! Es ist Zeit für dein tägliches Corona-Update. Wie fühlst du dich heute?',
+//     [
+//       [
+//         { text: 'Keine Symptome', callback: () => q7 },
+//         { text: 'Husten', callback: () => q7 },
+//       ],
+//       [
+//         { text: 'Fieber', callback: () => q7 },
+//         { text: 'Atemprobleme', callback: () => q7 },
+//       ],
+//       [{ text: 'Corona!', callback: () => q7 }],
+//     ],
+//     appContext,
+//   )(ctx)
+// }
 
-bot.command('/checkin', checkin)
+// bot.command('/checkin', checkin)
 
 bot.start(async ctx => {
   wipeUserSession(new Date(), ctx, appContext)
