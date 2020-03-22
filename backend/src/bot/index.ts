@@ -45,7 +45,7 @@ const start = async (ctx: ContextMessageUpdate) => {
 }
 
 const q2Yes = locationHandler(
-  'Wo ist Dein Zuhause oder Stadt?',
+  'Wo wohnst Du? Keine Sorge, nur Deine Stadt ist relevant.',
   async loc => {
     const geocode = new GeoCode()
     const result = await geocode.lookup(loc.latitude, loc.longitude)
@@ -84,7 +84,7 @@ bot.command('q3', q3)
 // bot.command('q4', q4)
 
 const q5 = selectHandler(
-  'Danke für die Info. Wann war der letzte Tag deiner Reise?',
+  'Danke für die Info. Wann war der letzte Tag Deiner Reise?',
   [
     [{ text: 'vor weniger als 1 Woche', callback: () => q6 }],
     [
@@ -116,11 +116,11 @@ const q6 = selectHandler(
 bot.command('q6', q6)
 
 const q7 = selectHandler(
-  'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
+  'Warst Du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
   [
-    [{ text: 'Niemand, ich war nur zuhause', callback: () => q8 }],
-    [{ text: '> 50 (voller Supermarkt, etc)', callback: () => q8 }],
-    [{ text: '> 100 (Zug, Flugzeug, etc.)', callback: () => q8 }],
+    [{ text: 'Nein, ich war nur zuhause', callback: () => q8 }],
+    [{ text: '> 50 (bspw. voller Supermarkt)', callback: () => q8 }],
+    [{ text: '> 100 (bspw. Zug, Flugzeug, etc.)', callback: () => q8 }],
   ],
   appContext,
 )
@@ -183,21 +183,21 @@ const onboardingComplete = async (
   contact: Contact,
 ) => {
   await ctx.reply(`\
-[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist deine Crew nun komplett.
+[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist Deine Crew nun komplett.
 
-Und hier nun endlich dein Ergebnis:`)
+Und hier nun endlich Dein Ergebnis:`)
 
   await ctx.replyWithPhoto('https://i.imgur.com/ceRsYUD.png')
 
   await ctx.replyWithMarkdown(`\
 🤪 Deine Infektions- wahrscheinlichkeit: **25%**.
 
-👪 Die Wahrscheinlichkeit, dass jemand in deiner Gruppe infiziert ist: **83%**.
+👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **83%**.
 
-👍 Deine Gruppe hat sich nicht vergrößert, super!`)
+👍 Deine Crew hat sich nicht vergrößert, super!`)
 
   await ctx.reply(
-    `Wir werden dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder deiner Crew mitmacht.`,
+    `Wir werden Dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder in Deiner Crew mitmacht.`,
   )
 }
 
