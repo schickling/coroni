@@ -101,56 +101,78 @@ const q6 = selectHandler(
   'Spürst Du Krankheitssymptome? 🤒',
   [
     [
-      { text: 'Keine', callback: () => q7 },
-      { text: 'Husten', callback: () => q7 },
+      { text: 'Keine', callback: () => q7('Keine') },
+      { text: 'Husten', callback: () => q7('Husten') },
     ],
     [
-      { text: 'Fieber', callback: () => q7 },
-      { text: 'Atemprobleme', callback: () => q7 },
+      { text: 'Fieber', callback: () => q7('Fieber') },
+      { text: 'Atemprobleme', callback: () => q7('Atemprobleme') },
     ],
-    [{ text: 'Bei mir wurde Corona diagnostiziert!🌡️', callback: () => q7 }],
+    [
+      {
+        text: 'Bei mir wurde Corona diagnostiziert!🌡️',
+        callback: () => q7('Corona'),
+      },
+    ],
   ],
   appContext,
 )
 bot.command('q6', q6)
 
-const q7 = selectHandler(
-  'Warst Du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
-  [
-    [{ text: 'Nein, ich war nur zuhause', callback: () => q8 }],
-    [{ text: '> 50 (bspw. voller Supermarkt)', callback: () => q8 }],
-    [{ text: '> 100 (bspw. Zug, Flugzeug, etc.)', callback: () => q8 }],
-  ],
-  appContext,
-)
-bot.command('q7', q7)
+const q7MessageMap = {
+  Keine: 'nix',
+  Husten: `✅ Alles klar, Du hast Husten. Das ist zwar ein Symptom, reicht aber allein noch nicht für eine Diagnose aus.`,
+  Fieber: 'hot',
+  Atemprobleme: 'gasp',
+  Corona: 'oh oh',
+}
+const q7 = (answer: keyof typeof q7MessageMap) => async (
+  ctx: ContextMessageUpdate,
+) => {
+  await ctx.reply(q7MessageMap[answer])
 
-const q8 = selectHandler(
-  `\
+  await selectHandler(
+    'Warst Du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
+    [
+      [{ text: 'Nein, ich war nur zuhause', callback: () => q8 }],
+      [{ text: '> 50 (bspw. voller Supermarkt)', callback: () => q8 }],
+      [{ text: '> 100 (bspw. Zug, Flugzeug, etc.)', callback: () => q8 }],
+    ],
+    appContext,
+  )(ctx)
+}
+bot.command('q7', q7('Keine'))
+
+const q8 = async (ctx: ContextMessageUpdate) => {
+  await ctx.reply(
+    `✅ Du warst nur Zuhause, super! Je weniger direkten Menschenkontakt Du hast, desto geringer ist die Wahrscheinlichkeit, mit dem Virus in Kontakt zu kommen.`,
+  )
+
+  await selectHandler(
+    `\
 Geschafft! Das waren die Grund-Informationen. Wie Du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren. Nur so können wir die Ausbreitung des Virus' verhindern.
 
 Es ist klar, dass Du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen Deine “Crew”.
 
 Wie groß ist Deine Crew?`,
-  [
     [
-      { text: '0', callback: () => contactQuestion(0, 0) },
-      { text: '1', callback: () => contactQuestion(1, 0) },
-      { text: '2', callback: () => contactQuestion(2, 0) },
+      [
+        { text: '0', callback: () => notImplemented },
+        { text: '1', callback: () => contactQuestion(1, 0) },
+        { text: '2', callback: () => contactQuestion(2, 0) },
+        { text: '3', callback: () => contactQuestion(3, 0) },
+      ],
+      [
+        { text: '4', callback: () => contactQuestion(4, 0) },
+        { text: '5', callback: () => contactQuestion(5, 0) },
+        { text: '6', callback: () => contactQuestion(6, 0) },
+        { text: '7', callback: () => contactQuestion(7, 0) },
+      ],
+      [{ text: 'mehr', callback: () => contactQuestion(10, 0) }],
     ],
-    [
-      { text: '3', callback: () => contactQuestion(3, 0) },
-      { text: '4', callback: () => contactQuestion(4, 0) },
-      { text: '5', callback: () => contactQuestion(5, 0) },
-      { text: '6', callback: () => contactQuestion(6, 0) },
-    ],
-    [
-      { text: '7', callback: () => contactQuestion(7, 0) },
-      { text: 'mehr', callback: () => contactQuestion(10, 0) },
-    ],
-  ],
-  appContext,
-)
+    appContext,
+  )(ctx)
+}
 bot.command('q8', q8)
 
 const contactQuestion = (
@@ -164,11 +186,11 @@ const contactQuestion = (
 
   const question =
     collected === 0
-      ? `✅ Super, deine Crew besteht aus ${crewSize} Leuten. Wer ist dabei?`
+      ? `✅ Super, deine Crew besteht aus ${crewSize} Leuten. Bitte teile die entsprechenden Kontakte:`
       : `[${collected}/${crewSize}] Super, Björn ist nun Teil deiner Crew. Nächster Kontakt bitte.`
   return contactHandler(
     question,
-    collected === 0 ? 'https://i.imgur.com/QcNN7lk.png' : undefined,
+    collected === 0 ? 'https://imgur.com/WnVaIOq.png' : undefined,
     contact => {
       console.log({ contact })
       return contactQuestion(crewSize, collected + 1, contact)
