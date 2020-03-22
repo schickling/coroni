@@ -6,6 +6,8 @@ import { identifyRegion } from '../case-counts/regions'
 
 // TODOS
 // - make user dynamic
+// - highlight selected option
+// - layout
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
@@ -15,13 +17,38 @@ bot.catch((e: any) => {
 
 bot.use(debugMiddleware)
 
+const q8 = selectHandler(
+  'q7',
+  `\
+Geschafft! Das waren die Baseline-Informationen. Wie du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren.
+Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen deine “Crew”. Wie groß ist deine Crew?`,
+  [
+    [
+      { text: '0', callback: async () => null },
+      { text: '1', callback: async () => null },
+      { text: '2', callback: async () => null },
+    ],
+    [
+      { text: '3', callback: async () => null },
+      { text: '4', callback: async () => null },
+      { text: '5', callback: async () => null },
+      { text: '6', callback: async () => null },
+    ],
+    [
+      { text: '7', callback: async () => null },
+      { text: 'mehr', callback: async () => null },
+    ],
+  ],
+  bot,
+)
+
 const q7 = selectHandler(
   'q7',
   'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
   [
-    { text: 'Niemand, ich war nur zuhause', callback: async () => null },
-    { text: '> 50 (voller Supermarkt, etc)', callback: async () => null },
-    { text: '> 100 (Zug, Flugzeug, etc.)', callback: async () => null },
+    [{ text: 'Niemand, ich war nur zuhause', callback: q8 }],
+    [{ text: '> 50 (voller Supermarkt, etc)', callback: q8 }],
+    [{ text: '> 100 (Zug, Flugzeug, etc.)', callback: q8 }],
   ],
   bot,
 )
@@ -30,10 +57,14 @@ const q6 = selectHandler(
   'q6',
   'Spürst du Krankheitssymptome?',
   [
-    { text: 'Keine', callback: q7 },
-    { text: 'Husten', callback: q7 },
-    { text: 'Fieber', callback: q7 },
-    { text: 'Atemprobleme', callback: q7 },
+    [
+      { text: 'Keine', callback: q7 },
+      { text: 'Husten', callback: q7 },
+    ],
+    [
+      { text: 'Fieber', callback: q7 },
+      { text: 'Atemprobleme', callback: q7 },
+    ],
   ],
   bot,
 )
@@ -42,9 +73,11 @@ const q5 = selectHandler(
   'q5',
   'Danke für die Info. Wann war der letzte Tag deiner Reise?',
   [
-    { text: 'vor weniger als 1 Woche', callback: q6 },
-    { text: 'vor 2 Wochen', callback: q6 },
-    { text: 'vor 3 Wochen', callback: q6 },
+    [{ text: 'vor weniger als 1 Woche', callback: q6 }],
+    [
+      { text: 'vor 2 Wochen', callback: q6 },
+      { text: 'vor 3 Wochen', callback: q6 },
+    ],
   ],
   bot,
 )
@@ -61,8 +94,10 @@ const q3 = selectHandler(
   'q3',
   'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
   [
-    { text: 'Ja', callback: q4 },
-    { text: 'Nein', callback: async () => null },
+    [
+      { text: 'Ja', callback: q4 },
+      { text: 'Nein', callback: async () => null },
+    ],
   ],
   bot,
 )
@@ -91,8 +126,10 @@ const q1 = selectHandler(
   'q1',
   'Bist du gerade zu Hause?',
   [
-    { text: 'Ja', callback: q2Yes },
-    { text: 'Nein', callback: async () => null },
+    [
+      { text: 'Ja', callback: q2Yes },
+      { text: 'Nein', callback: async () => null },
+    ],
   ],
   bot,
 )

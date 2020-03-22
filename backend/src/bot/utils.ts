@@ -11,26 +11,32 @@ type Answer = {
 export function selectHandler(
   actionPrefix: string,
   question: string,
-  answers: Answer[],
+  answers: Answer[][],
   bot: Telegraf<ContextMessageUpdate>,
 ): (ctx: ContextMessageUpdate) => Promise<any> {
   return ctx => {
-    const actionKey = (index: number) => `${actionPrefix}-${index}`
+    const actionKey = (row: number, col: number) =>
+      `${actionPrefix}-${row}-${col}`
     let questionAsked = false
-    for (const i of answers.keys()) {
-      bot.action(actionKey(i), actionCtx => {
-        if (questionAsked) {
-          console.log(`Already asked question "${question}"`)
-          return
-        }
-        questionAsked = true
-        answers[i].callback(actionCtx)
-      })
+    for (const row of answers.keys()) {
+      for (const col of answers[row].keys())
+        bot.action(actionKey(row, col), actionCtx => {
+          if (questionAsked) {
+            console.log(`Already asked question "${question}"`)
+            return
+          }
+          questionAsked = true
+          answers[row][col].callback(actionCtx)
+        })
     }
     return ctx.reply(
       question,
       Markup.inlineKeyboard(
-        answers.map((a, i) => Markup.callbackButton(a.text, actionKey(i))),
+        answers.map((list, row) =>
+          list.map((a, col) =>
+            Markup.callbackButton(a.text, actionKey(row, col)),
+          ),
+        ),
       ).extra(),
     )
   }
@@ -89,11 +95,13 @@ export function locationHandler(
     message = await ctx.reply(
       question,
       Extra.markup((markup: Markup) => {
-        return markup
-          .keyboard([markup.locationRequestButton('Send location', false)])
-          // oneTime doesn't seem to work for locationRequestButton
-          .oneTime()
-          .resize()
+        return (
+          markup
+            .keyboard([markup.locationRequestButton('Send location', false)])
+            // oneTime doesn't seem to work for locationRequestButton
+            .oneTime()
+            .resize()
+        )
       }),
     )
     return message
