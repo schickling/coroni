@@ -1,66 +1,11 @@
 import Telegraf, { ContextMessageUpdate, Extra, Markup } from 'telegraf'
 import { Location, Message, Contact } from 'telegraf/typings/telegram-types'
 import { createHash } from 'crypto'
+import { Session } from './session'
 
-type PromiseOrConst<T> = Promise<T> | T
+export type PromiseOrConst<T> = Promise<T> | T
 export type ContextCallback = (ctx: ContextMessageUpdate) => PromiseOrConst<any>
 export type Callback<T> = (arg: T) => PromiseOrConst<ContextCallback>
-
-type SessionData = {
-  [userId: number]: {
-    [storageKey: string]: boolean
-  }
-}
-
-export class Session {
-  private data: SessionData
-
-  constructor() {
-    this.data = {}
-  }
-
-  async runOnce(
-    userId: number,
-    actionPrefix: string,
-    ctx: ContextMessageUpdate | undefined,
-    fn: () => PromiseOrConst<any>,
-  ) {
-    if (this.lazyGet(userId, actionPrefix)) {
-      // TODO adjust this logic for one-time uses (e.g. location/contact sharing) to avoid logging
-      console.log(
-        `User ${userId} already asked question for hash "${actionPrefix}"`,
-      )
-      await ctx?.answerCbQuery('Already answered before.')
-      return
-    }
-    this.lazySet(userId, actionPrefix)
-    await fn()
-  }
-
-  private lazyGet(userId: number, actionPrefix: string): boolean {
-    this.lazyInit(userId, actionPrefix)
-    return this.data[userId][actionPrefix]
-  }
-
-  private lazySet(userId: number, actionPrefix: string) {
-    this.lazyInit(userId, actionPrefix)
-    this.data[userId][actionPrefix] = true
-  }
-
-  wipe(userId: number) {
-    this.data[userId] = {}
-  }
-
-  private lazyInit(userId: number, actionPrefix: string) {
-    if (this.data[userId] === undefined) {
-      this.data[userId] = {}
-    }
-
-    if (this.data[userId][actionPrefix] === undefined) {
-      this.data[userId][actionPrefix] = false
-    }
-  }
-}
 
 export type AppContext = {
   bot: Telegraf<ContextMessageUpdate>
@@ -73,11 +18,12 @@ type Answer = {
 }
 
 export function wipeUserSession(
+  sessionId: number,
   ctx: ContextMessageUpdate,
   appContext: AppContext,
 ) {
   const userId = ctx.from!.id
-  appContext.session.wipe(userId)
+  appContext.session.wipe(userId, sessionId)
 }
 
 export function selectHandler(
@@ -105,11 +51,13 @@ export function selectHandler(
       ).extra()
 
     for (const row of answers.keys()) {
-      for (const col of answers[row].keys())
+      for (const col of answers[row].keys()) {
+        const originalSessionId = appContext.session.sessionId(userId)
         appContext.bot.action(actionKey(row, col), async actionCtx => {
           await appContext.session.runOnce(
             userId,
             actionPrefix,
+            originalSessionId,
             actionCtx,
             async () => {
               await actionCtx.editMessageText(
@@ -121,6 +69,7 @@ export function selectHandler(
             },
           )
         })
+      }
     }
     return ctx.reply(question, renderMarkup())
   }
@@ -135,10 +84,12 @@ export function contactHandler(
     const userId = ctx.from!.id
     const actionPrefix = hash(question)
 
+    const originalSessionId = appContext.session.sessionId(userId)
     appContext.bot.on('contact', async (contactCtx, next) => {
       await appContext.session.runOnce(
         userId,
         actionPrefix,
+        originalSessionId,
         undefined,
         async () => {
           const fn = await callback(contactCtx.update.message!.contact!)
@@ -160,10 +111,12 @@ export function inputHandler(
   return ctx => {
     const userId = ctx.from!.id
     const actionPrefix = hash(question)
+    const originalSessionId = appContext.session.sessionId(userId)
     appContext.bot.on('message', async (messageCtx, next) => {
       await appContext.session.runOnce(
         userId,
         actionPrefix,
+        originalSessionId,
         messageCtx,
         async () => {
           const fn = await callback(messageCtx.update.message!.text!)
@@ -185,11 +138,13 @@ export function locationHandler(
   return async ctx => {
     const userId = ctx.from!.id
     const actionPrefix = hash(question)
-    let message: Message
+    let message: Message | null = null
+    const originalSessionId = appContext.session.sessionId(userId)
     appContext.bot.on('location', async (locationCtx, next) => {
       await appContext.session.runOnce(
         userId,
         actionPrefix,
+        originalSessionId,
         undefined,
         async () => {
           if (message) {

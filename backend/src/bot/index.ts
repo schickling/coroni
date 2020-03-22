@@ -2,16 +2,16 @@ import Telegraf, { ContextMessageUpdate } from 'telegraf'
 import {
   selectHandler,
   locationHandler,
-  inputHandler,
+  // inputHandler,
   contactHandler,
   ContextCallback,
-  Session,
   wipeUserSession,
 } from './utils'
 import { debugMiddleware } from './middlewares'
 import GeoCode from '../case-counts/geocode'
 import { identifyRegion } from '../case-counts/regions'
 import { Contact } from 'telegraf/typings/telegram-types'
+import { Session } from './session'
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
@@ -43,6 +43,7 @@ const start = async (ctx: ContextMessageUpdate) => {
   // )(ctx)
 }
 
+// location doppelt?
 const q2Yes = locationHandler(
   'Wo wohnst Du? Keine Sorge, nur Deine Stadt ist relevant.',
   async loc => {
@@ -221,7 +222,7 @@ const checkin = async (ctx: ContextMessageUpdate) => {
 bot.command('/checkin', checkin)
 
 bot.start(async ctx => {
-  wipeUserSession(ctx, appContext)
+  wipeUserSession(Math.random(), ctx, appContext)
   await start(ctx)
 })
 
