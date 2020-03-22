@@ -5,6 +5,8 @@ import {
   inputHandler,
   contactHandler,
   ContextCallback,
+  Session,
+  wipeUserSession,
 } from './utils'
 import { debugMiddleware } from './middlewares'
 import GeoCode from '../case-counts/geocode'
@@ -16,7 +18,7 @@ import { Contact } from 'telegraf/typings/telegram-types'
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
-const appContext = { bot, session: {} }
+const appContext = { bot, session: new Session() }
 
 bot.catch((e: any) => {
   console.log('telegraf error', e.response, e.parameters, e.on || e)
@@ -25,7 +27,6 @@ bot.catch((e: any) => {
 bot.use(debugMiddleware)
 
 const q1 = selectHandler(
-  'q1',
   'Bist du gerade zu Hause?',
   [
     [
@@ -57,12 +58,11 @@ Cases: ${region?.cases.cases}`,
 )
 
 const q3 = selectHandler(
-  'q3',
   'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
   [
     [
       { text: 'Ja', callback: () => q4 },
-      { text: 'Nein', callback: () => () => null },
+      { text: 'Nein', callback: () => q6 },
     ],
   ],
   appContext,
@@ -77,7 +77,6 @@ const q4 = inputHandler(
 )
 
 const q5 = selectHandler(
-  'q5',
   'Danke für die Info. Wann war der letzte Tag deiner Reise?',
   [
     [{ text: 'vor weniger als 1 Woche', callback: () => q6 }],
@@ -90,7 +89,6 @@ const q5 = selectHandler(
 )
 
 const q6 = selectHandler(
-  'q6',
   'Spürst du Krankheitssymptome?',
   [
     [
@@ -106,7 +104,6 @@ const q6 = selectHandler(
 )
 
 const q7 = selectHandler(
-  'q7',
   'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
   [
     [{ text: 'Niemand, ich war nur zuhause', callback: () => q8 }],
@@ -117,7 +114,6 @@ const q7 = selectHandler(
 )
 
 const q8 = selectHandler(
-  'q7',
   `\
 Geschafft! Das waren die Baseline-Informationen. Wie du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren.
 Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen deine “Crew”. Wie groß ist deine Crew?`,
@@ -177,8 +173,9 @@ const onboardingComplete = (
   )
 
 bot.start(async ctx => {
+  wipeUserSession(ctx, appContext)
   await ctx.reply('Welcome to Coroni 🦠')
-  await q8(ctx)
+  await q1(ctx)
 })
 
 bot.launch()

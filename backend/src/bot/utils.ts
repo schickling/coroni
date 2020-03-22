@@ -1,13 +1,46 @@
 import Telegraf, { ContextMessageUpdate, Extra, Markup } from 'telegraf'
 import { Location, Message, Contact } from 'telegraf/typings/telegram-types'
+import { createHash } from 'crypto'
 
 type PromiseOrConst<T> = Promise<T> | T
 export type ContextCallback = (ctx: ContextMessageUpdate) => PromiseOrConst<any>
 export type Callback<T> = (arg: T) => PromiseOrConst<ContextCallback>
 
-export type Session = {
+type SessionData = {
   [userId: number]: {
-    [sessionKey: string]: boolean
+    [storageKey: string]: boolean
+  }
+}
+
+export class Session {
+  private data: SessionData
+
+  constructor() {
+    this.data = {}
+  }
+
+  lazyGet(userId: number, actionPrefix: string): boolean {
+    this.lazyInit(userId, actionPrefix)
+    return this.data[userId][actionPrefix]
+  }
+
+  lazySet(userId: number, actionPrefix: string) {
+    this.lazyInit(userId, actionPrefix)
+    this.data[userId][actionPrefix] = true
+  }
+
+  wipe(userId: number) {
+    this.data[userId] = {}
+  }
+
+  private lazyInit(userId: number, actionPrefix: string) {
+    if (this.data[userId] === undefined) {
+      this.data[userId] = {}
+    }
+
+    if (this.data[userId][actionPrefix] === undefined) {
+      this.data[userId][actionPrefix] = false
+    }
   }
 }
 
@@ -21,15 +54,24 @@ type Answer = {
   callback: Callback<void>
 }
 
+export function wipeUserSession(
+  ctx: ContextMessageUpdate,
+  appContext: AppContext,
+) {
+  const userId = ctx.from!.id
+  appContext.session.wipe(userId)
+}
+
 export function selectHandler(
-  actionPrefix: string,
   question: string,
   answers: Answer[][],
   appContext: AppContext,
-): (ctx: ContextMessageUpdate) => Promise<any> {
+): ContextCallback {
   return ctx => {
+    const userId = ctx.from!.id
+    const actionPrefix = hash(question)
     const actionKey = (row: number, col: number) =>
-      `${actionPrefix}-${row}-${col}`
+      `${actionPrefix}-${userId}-${row}-${col}`
 
     const renderMarkup = (activeButton?: [number, number]) =>
       Markup.inlineKeyboard(
@@ -44,15 +86,14 @@ export function selectHandler(
         ),
       ).extra()
 
-    let questionAsked = false
     for (const row of answers.keys()) {
       for (const col of answers[row].keys())
         appContext.bot.action(actionKey(row, col), async actionCtx => {
-          if (questionAsked) {
+          if (appContext.session.lazyGet(userId, actionPrefix)) {
             console.log(`Already asked question "${question}"`)
             return
           }
-          questionAsked = true
+          appContext.session.lazySet(userId, actionPrefix)
           await actionCtx.editMessageText(question, renderMarkup([row, col]))
           const fn = await answers[row][col].callback()
           await fn(actionCtx)
@@ -66,25 +107,24 @@ export function contactHandler(
   question: string,
   callback: Callback<Contact>,
   appContext: AppContext,
-): (ctx: ContextMessageUpdate) => Promise<any> {
+): ContextCallback {
   return async ctx => {
-    let questionAsked = false
-    let message: Message
+    const userId = ctx.from!.id
+    const actionPrefix = hash(question)
 
     appContext.bot.on('contact', async (contactCtx, next) => {
-      if (questionAsked) {
+      if (appContext.session.lazyGet(userId, actionPrefix)) {
         console.log(`Already asked question "${question}"`)
         return next && next()
       }
-      questionAsked = true
+      appContext.session.lazySet(userId, actionPrefix)
 
       const fn = await callback(contactCtx.update.message!.contact!)
       await fn(contactCtx)
 
       return next && next()
     })
-    message = await ctx.reply(question)
-    return message
+    return ctx.reply(question)
   }
 }
 
@@ -92,15 +132,16 @@ export function inputHandler(
   question: string,
   callback: Callback<string>,
   appContext: AppContext,
-): (ctx: ContextMessageUpdate) => Promise<any> {
+): ContextCallback {
   return ctx => {
-    let questionAsked = false
+    const userId = ctx.from!.id
+    const actionPrefix = hash(question)
     appContext.bot.on('message', async (messageCtx, next) => {
-      if (questionAsked) {
+      if (appContext.session.lazyGet(userId, actionPrefix)) {
         console.log(`Already asked question "${question}"`)
         return next && next()
       }
-      questionAsked = true
+      appContext.session.lazySet(userId, actionPrefix)
       const fn = await callback(messageCtx.update.message!.text!)
       await fn(messageCtx)
       return next && next()
@@ -113,16 +154,17 @@ export function locationHandler(
   question: string,
   callback: Callback<Location>,
   appContext: AppContext,
-): (ctx: ContextMessageUpdate) => Promise<any> {
+): ContextCallback {
   return async ctx => {
-    let questionAsked = false
+    const userId = ctx.from!.id
+    const actionPrefix = hash(question)
     let message: Message
     appContext.bot.on('location', async (locationCtx, next) => {
-      if (questionAsked) {
+      if (appContext.session.lazyGet(userId, actionPrefix)) {
         console.log(`Already asked question "${question}"`)
         return next && next()
       }
-      questionAsked = true
+      appContext.session.lazySet(userId, actionPrefix)
 
       // https://core.telegram.org/bots/api#updating-messages
       // From the docs: Please note, that it is currently only possible to edit messages
@@ -151,4 +193,10 @@ export function locationHandler(
     )
     return message
   }
+}
+
+function hash(str: string): string {
+  return createHash('md5')
+    .update(str)
+    .digest('hex')
 }
