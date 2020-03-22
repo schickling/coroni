@@ -24,7 +24,7 @@ model User {
 model Event {
   id          Int       @id @default(autoincrement())
   user        User      @relation("UserEvents")
-  timestamp   DateTime
+  timestamp   DateTime  @default(now())
   eventType   EventType
   interaction User?     @relation("UserInteractions")
   // Attachments, handled by event type implementation

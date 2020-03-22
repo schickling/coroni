@@ -3,7 +3,4 @@
 # Prisma Migrate lockfile v1
 # Read more about conflict resolution here: TODO
 
-20200321114306-initial
-20200321114717-fix-id-naming
-20200322152536-event-id-autoinc
-20200322152628-test
+20200322192833-init

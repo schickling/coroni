@@ -12,96 +12,100 @@ export class EventIngest {
     this.user = user
   }
 
-  highRiskEvent(timestamp: Moment = moment()) {
-    this.client.event.create({
+  async highRiskEvent(timestamp: Moment = moment()) {
+    await this.client.event.create({
       data: {
         eventType: EventType.HighRiskArea,
-        timestamp: timestamp.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         data: '',
-        interaction: null
-      }
+        // interaction: null,
+      },
     })
   }
-  
-  sympthomsEvent(timestamp: Moment = moment()) {
-    this.client.event.create({
+
+  async sympthomsEvent(timestamp: Moment = moment()) {
+    await this.client.event.create({
       data: {
         eventType: EventType.Sympthoms,
-        timestamp: timestamp.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         data: '',
-        interaction: null
-      }
+        // interaction: null,
+      },
     })
   }
 
-
-
-  diagnosedPositiveEvent(timestamp: Moment = moment()) {
-    this.client.event.create({
+  async diagnosedPositiveEvent(timestamp: Moment = moment()) {
+    await this.client.event.create({
       data: {
         eventType: EventType.DiagnosedSick,
-        timestamp: timestamp.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         data: '',
-        interaction: null
-      }
+        // interaction: null,
+      },
     })
 
-    const infectedSince = timestamp.clone().subtract(Params.incubationPeriod, 'days')
+    const infectedSince = timestamp
+      .clone()
+      .subtract(Params.incubationPeriod, 'days')
 
     this.client.event.create({
       data: {
         eventType: EventType.MarkerSick,
-        timestamp: infectedSince.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         data: '',
-        interaction: null
-      }
+        // interaction: null,
+      },
     })
   }
 
   /**
    * Location state/region needs to be equal to the stuff returned from the geocoder.
    */
-  locationEvent(state: string, region: string, timestamp: Moment = moment()) {
-    this.client.event.create({
+  async locationEvent(
+    state: string,
+    region: string,
+    timestamp: Moment = moment(),
+  ) {
+    await this.client.event.create({
       data: {
         eventType: EventType.Location,
-        timestamp: timestamp.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         // Best encoding!
         data: JSON.stringify({ state, region }),
-        interaction: null
-      }
+        // interaction: null
+      },
     })
   }
 
-  interactionEvent(otherUser: User, timestamp: Moment = moment()) {
-    this.client.event.create({
+  async interactionEvent(otherUser: User, timestamp: Moment = moment()) {
+    await this.client.event.create({
       data: {
         eventType: EventType.Interaction,
-        timestamp: timestamp.format(),
+        timestamp: timestamp.toDate(),
         user: {
-          connect: { id: this.user.id }
+          connect: { id: this.user.id },
         },
         // Best encoding!
         data: '',
         interaction: {
-          connect: { id: otherUser.id }
-        }
-      }
+          connect: { id: otherUser.id },
+        },
+      },
     })
   }
 }

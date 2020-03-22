@@ -12,6 +12,11 @@ import GeoCode from '../case-counts/geocode'
 import { identifyRegion } from '../case-counts/regions'
 import { Contact } from 'telegraf/typings/telegram-types'
 import { Session } from './session'
+import { PrismaClient } from '@prisma/client'
+import { EventIngest } from '../ingest'
+import Model from '../model/model'
+
+const db = new PrismaClient()
 
 const bot = new Telegraf(process.env.BOT_TOKEN!)
 
@@ -52,6 +57,12 @@ const q2Yes = locationHandler(
     const result = await geocode.lookup(loc.latitude, loc.longitude)
     const region = identifyRegion(result[0])!
     return async (ctx: ContextMessageUpdate) => {
+      const user = await db.user.findOne({
+        where: { phoneNumber: `${ctx.chat!.id}` },
+      })
+      const ingest = new EventIngest(user!)
+      await ingest.locationEvent(region.state, region.region)
+
       await ctx.reply(
         `\
 Cool, Du wohnst in ${region.region} (${region.state}). Dort gibt es derzeit ${region.cases.cases} Fälle.`,
@@ -66,7 +77,19 @@ const q3 = selectHandler(
   'Warst Du in den letzten 3 Wochen in einem Risikogebiet?',
   [
     [
-      { text: 'Ja', callback: () => q5 },
+      {
+        text: 'Ja',
+        callback: () => {
+          return async ctx => {
+            const user = await db.user.findOne({
+              where: { phoneNumber: `${ctx.chat!.id}` },
+            })
+            const ingest = new EventIngest(user!)
+            await ingest.highRiskEvent()
+            return q5(ctx)
+          }
+        },
+      },
       { text: 'Nein', callback: () => q6 },
     ],
   ],
@@ -121,13 +144,23 @@ bot.command('q6', q6)
 const q7MessageMap = {
   Keine: '✅ Du hast derzeit keinerlei Symptome. Sehr gut!',
   Husten: `✅ Alles klar, Du hast Husten. Das ist zwar ein Symptom, reicht aber allein noch nicht für eine Diagnose aus.`,
-  Fieber: 'hot',
-  Atemprobleme: 'gasp',
-  Corona: 'oh oh',
+  Fieber: '✅ Bitte sei vorsichtig und gute Besserung!',
+  Atemprobleme: '✅ Bitte sei vorsichtig und gute Besserung!',
+  Corona: '✅ Well. This is awkward. You should see a doctor. 😷',
 }
 const q7 = (answer: keyof typeof q7MessageMap) => async (
   ctx: ContextMessageUpdate,
 ) => {
+  const user = await db.user.findOne({
+    where: { phoneNumber: `${ctx.chat!.id}` },
+  })
+  const ingest = new EventIngest(user!)
+  if (answer === 'Husten' || answer === 'Atemprobleme' || answer === 'Fieber') {
+    await ingest.sympthomsEvent()
+  } else if (answer === 'Corona') {
+    await ingest.diagnosedPositiveEvent()
+  }
+
   await ctx.reply(q7MessageMap[answer])
 
   await selectHandler(
@@ -179,25 +212,41 @@ const contactQuestion = (
   collected: number,
   contact?: Contact,
 ): ContextCallback => {
-  if (crewSize === collected) {
-    return ctx => onboardingComplete(ctx, crewSize, collected, contact!)
-  }
+  return async ctx => {
+    if (contact) {
+      const user = await db.user.findOne({
+        where: { phoneNumber: `${ctx.chat!.id}` },
+      })
+      const ingest = new EventIngest(user!)
+      const data = { phoneNumber: `${contact.user_id!}` }
+      const otherUser = await db.user.upsert({
+        where: data,
+        create: data,
+        update: {},
+      })
+      await ingest.interactionEvent(otherUser)
+    }
 
-  const question =
-    collected === 0
-      ? `\n
+    if (crewSize === collected) {
+      return onboardingComplete(ctx, crewSize, collected, contact!)
+    }
+
+    const question =
+      collected === 0
+        ? `\n
 ✅ Super, deine Crew besteht aus ${crewSize} Leuten.
 Bitte teile die entsprechenden Kontakte:`
-      : `[${collected}/${crewSize}] Super, ${contact?.first_name} ist nun Teil deiner Crew. Nächster Kontakt bitte.`
-  return contactHandler(
-    question,
-    collected === 0 ? 'https://imgur.com/WnVaIOq.png' : undefined,
-    contact => {
-      console.log({ contact })
-      return contactQuestion(crewSize, collected + 1, contact)
-    },
-    appContext,
-  )
+        : `[${collected}/${crewSize}] Super, ${contact?.first_name} ist nun Teil deiner Crew. Nächster Kontakt bitte.`
+    return contactHandler(
+      question,
+      collected === 0 ? 'https://imgur.com/WnVaIOq.png' : undefined,
+      contact => {
+        console.log({ contact })
+        return contactQuestion(crewSize, collected + 1, contact)
+      },
+      appContext,
+    )(ctx)
+  }
 }
 
 // TODO forwarding step missing
@@ -208,6 +257,15 @@ const onboardingComplete = async (
   collected: number,
   contact: Contact,
 ) => {
+  const model = new Model()
+  const user = await db.user.findOne({
+    where: { phoneNumber: `${ctx.chat!.id}` },
+  })
+  const events = await db.event.findMany({
+    include: { user: true, interaction: true },
+  })
+  const risks = model.calculate(events)
+
   await ctx.reply(`\
 [${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist Deine Crew nun komplett.
 
@@ -216,11 +274,10 @@ Und hier nun endlich Dein Ergebnis:`)
   await ctx.replyWithPhoto('https://imgur.com/jicHJrF.png')
 
   await ctx.replyWithMarkdown(`\
-👩‍⚕️ Deine Infektions- wahrscheinlichkeit: **3.7%**.
+👩‍⚕️ Deine Infektions- wahrscheinlichkeit: **${risks.userRisk[user!.id] * 100}%**.
 
-👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **15%**.
-
-👍 Deine Crew hat sich nicht vergrößert, super!`)
+👪 Die Wahrscheinlichkeit, dass jemand in deiner Crew infiziert ist: **${risks
+    .groupRisk[user!.id] * 100}%**.`)
 
   await ctx.reply(
     `Wir werden Dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder in Deiner Crew mitmacht. 👋`,
@@ -249,16 +306,21 @@ Und hier nun endlich Dein Ergebnis:`)
 
 bot.start(async ctx => {
   wipeUserSession(new Date(), ctx, appContext)
+  await db.user.upsert({
+    where: { phoneNumber: `${ctx.chat!.id}` },
+    create: { phoneNumber: `${ctx.chat!.id}` },
+    update: {},
+  })
   await start(ctx)
 })
 
-const debug = false
+const debug = true
 if (debug) {
   const devUserIds = [
-    108740976, // Julian Bauer
+    // 108740976, // Julian Bauer
     67786295, // Johannes Schickling
-    108990193, // Emanuel Joebstl
-    1085659828, // Julian Specht
+    // 108990193, // Emanuel Joebstl
+    // 1085659828, // Julian Specht
   ]
   for (const userId of devUserIds) {
     bot.telegram.sendMessage(userId, 'Server restarted. Please run /start')

@@ -9,50 +9,59 @@ export interface InternalEvent {
   type: EventType
   userId: number
   connectionId: number | null
-  data: string | null,
+  data: string | null
   timestamp: Moment
 }
 
-export interface UserDict { [id: number]: number }
-export interface Interactions { [id: number]: {
+export interface UserDict {
+  [id: number]: number
+}
+export interface Interactions {
+  [id: number]: {
     [id: number]: number
   }
 }
 
 export default class Model {
-  constructor() {
+  constructor() {}
 
-  }
-
-  public calculate(allEvents: (Event & { connection: User, user: User })[]) {
+  public calculate(allEvents: (Event & { interaction: User | null; user: User })[]) {
     const events = allEvents.map(e => ({
       type: e.eventType,
       userId: e.user.id,
-      connectionId: e.connection.id,
+      connectionId: e.interaction ? e.interaction.id : null,
       data: e.data,
       // Align timestamps on 24 hour intervals.
       // Depends on our update interval.
-      timestamp: moment(e.timestamp).hour(0).minute(0).second(0).millisecond(0)
+      timestamp: moment(e.timestamp)
+        .hour(0)
+        .minute(0)
+        .second(0)
+        .millisecond(0),
     }))
-    
+
     return this.calculateInternal(events)
   }
-  
+
   public calculateInternal(allEvents: InternalEvent[]) {
     const events = allEvents.map(e => ({
       ...e,
-      unix: e.timestamp.unix()
+      unix: e.timestamp.unix(),
     }))
 
     // Summarize all user IDs
-    const userIds = _.uniq(events.flatMap(e => e.connectionId !== null ? [e.userId, e.connectionId] : [e.userId]))
+    const userIds = _.uniq(
+      events.flatMap(e =>
+        e.connectionId !== null ? [e.userId, e.connectionId] : [e.userId],
+      ),
+    )
 
     // Infectivity
     const p: UserDict = userIds.reduce((dict, user) => {
       dict[user] = 0
       return dict
-    }, { } as UserDict)
-    const interactionAgg: Interactions = { }
+    }, {} as UserDict)
+    const interactionAgg: Interactions = {}
 
     const grouped = Object.values(_.groupBy(events, 'unix'))
 
@@ -71,68 +80,88 @@ export default class Model {
       p[userId] = prob
     }
 
-    for(const day of ordered) {
+    for (const day of ordered) {
       const date = day[0].timestamp
-      const datePlusN= day[0].timestamp.clone().add(Params.incubationPeriod, 'days')
+      const datePlusN = day[0].timestamp
+        .clone()
+        .add(Params.incubationPeriod, 'days')
 
       // Apply certain infections
       const infections = day.filter(e => e.type === EventType.MarkerSick)
 
-      for(const infection of infections) {
+      for (const infection of infections) {
         // Assume p = 1
         setP(infection.userId, 1)
       }
-  
+
       // Apply sympthoms
       const sympthoms = day.filter(e => e.type === EventType.Sympthoms)
 
-      for(const sympthom of sympthoms) {
+      for (const sympthom of sympthoms) {
         // Increase risk by a lot.
         combineP(sympthom.userId, 0.5)
       }
-  
+
       // Apply high risk travel/comeback
       const highRisks = day.filter(e => e.type === EventType.HighRiskArea)
-      const highRiskPrediction = CaseCounts.predict(CaseCounts.highRisk(), datePlusN, Params.alpha)
+      const highRiskPrediction = CaseCounts.predict(
+        CaseCounts.highRisk(),
+        datePlusN,
+        Params.alpha,
+      )
       const highRiskP = highRiskPrediction.casesPerThousand / 1000
 
-      for(const highRisk of highRisks) {
+      for (const highRisk of highRisks) {
         combineP(highRisk.userId, highRiskP)
       }
 
       // Apply local risk
-      const locals = day.filter(e => e.type === EventType.Location && e.data !== null)
+      const locals = day.filter(
+        e => e.type === EventType.Location && e.data !== null,
+      )
 
-      for(const local of locals) {
+      for (const local of locals) {
         const location = JSON.parse(local.data as string)
         const localCases = CaseCounts.find(location.state, location.region)
 
-        if(localCases === null) {
+        if (localCases === null) {
           continue
         }
 
-        const localPrediction = CaseCounts.predict(localCases, datePlusN, Params.alpha)
+        const localPrediction = CaseCounts.predict(
+          localCases,
+          datePlusN,
+          Params.alpha,
+        )
         const localRiskP = highRiskPrediction.casesPerThousand / 1000
         combineP(local.userId, localRiskP)
       }
 
       // Finally, apply interactions, randomized.
-      const interactions = _.shuffle(_.uniq(day.filter(e => e.type === EventType.Interaction && e.connectionId !== null).map(e => ({ u1: e.userId, u2: e.connectionId }))))
-      
-      for(const interaction of interactions) {
+      const interactions = _.shuffle(
+        _.uniq(
+          day
+            .filter(
+              e => e.type === EventType.Interaction && e.connectionId !== null,
+            )
+            .map(e => ({ u1: e.userId, u2: e.connectionId })),
+        ),
+      )
 
-        if(interaction.u2 === null || interaction.u1 == interaction.u2) {
+      for (const interaction of interactions) {
+        if (interaction.u2 === null || interaction.u1 == interaction.u2) {
           continue
         }
 
         // TODO: Interactions should not be forever
-        if(interactionAgg[interaction.u1] === undefined) {
-          interactionAgg[interaction.u1] = { } 
+        if (interactionAgg[interaction.u1] === undefined) {
+          interactionAgg[interaction.u1] = {}
         }
-        if(interactionAgg[interaction.u1][interaction.u2] === undefined) {
+        if (interactionAgg[interaction.u1][interaction.u2] === undefined) {
           interactionAgg[interaction.u1][interaction.u2] = 1
         } else {
-          interactionAgg[interaction.u1][interaction.u2] = interactionAgg[interaction.u1][interaction.u2] + 1
+          interactionAgg[interaction.u1][interaction.u2] =
+            interactionAgg[interaction.u1][interaction.u2] + 1
         }
 
         const p1 = p[interaction.u1] * Params.gamma
@@ -145,14 +174,13 @@ export default class Model {
       }
     }
 
-    const groupRisk: UserDict = { }
+    const groupRisk: UserDict = {}
 
-    for(const u in p) {
+    for (const u in p) {
       let r = 0
 
-      if(interactionAgg[u]) {
-      for(const c in interactionAgg[u])
-        r = combine(r, interactionAgg[u][c])
+      if (interactionAgg[u]) {
+        for (const c in interactionAgg[u]) r = combine(r, interactionAgg[u][c])
       }
 
       groupRisk[u] = r
