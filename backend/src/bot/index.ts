@@ -30,10 +30,10 @@ const notImplemented = (ctx: ContextMessageUpdate) =>
   ctx.reply('Game over. Restart with /start')
 
 const start = async (ctx: ContextMessageUpdate) => {
-  await ctx.reply('Welcome to Coroni 🦠')
+  await ctx.reply('Welcome to Coroni! 🦠 Gemeinsam sind wir im Kampf gegen Corona stark! Hilf dabei, das Virus einzudämmen, indem Du ein paar Fragen beantwortest 💪')
   await q2Yes(ctx)
   // await selectHandler(
-  //   'Bist du gerade zu Hause?',
+  //   'Bist Du gerade zu Hause?',
   //   [
   //     [
   //       { text: 'Ja', callback: () => q2Yes },
@@ -45,7 +45,7 @@ const start = async (ctx: ContextMessageUpdate) => {
 }
 
 const q2Yes = locationHandler(
-  'Wo ist dein Zuhause oder Stadt?',
+  'Wo ist Dein Zuhause oder Stadt?',
   async loc => {
     const geocode = new GeoCode()
     const result = await geocode.lookup(loc.latitude, loc.longitude)
@@ -53,7 +53,7 @@ const q2Yes = locationHandler(
     return async (ctx: ContextMessageUpdate) => {
       await ctx.reply(
         `\
-Cool, du wohnst in ${region.region} (${region.state}).
+Cool, Du wohnst in ${region.region} (${region.state}).
 Derzeit ${region.cases.cases} Fälle.`,
       )
       return q3(ctx)
@@ -63,7 +63,7 @@ Derzeit ${region.cases.cases} Fälle.`,
 )
 
 const q3 = selectHandler(
-  'Warst du in den letzten 2 Wochen in einem Risikogebiet?',
+  'Warst Du in den letzten 2 Wochen in einem Risikogebiet?',
   [
     [
       { text: 'Ja', callback: () => q5 },
@@ -75,7 +75,7 @@ const q3 = selectHandler(
 bot.command('q3', q3)
 
 // const q4 = inputHandler(
-//   'Wo warst du?',
+//   'Wo warst Du?',
 //   async answer => {
 //     return q6
 //   },
@@ -97,7 +97,7 @@ const q5 = selectHandler(
 bot.command('q5', q5)
 
 const q6 = selectHandler(
-  'Spürst du Krankheitssymptome?',
+  'Spürst Du Krankheitssymptome?',
   [
     [
       { text: 'Keine', callback: () => q7 },
@@ -108,7 +108,7 @@ const q6 = selectHandler(
       { text: 'Atemprobleme', callback: () => q7 },
     ],
     [
-      { text: 'Corona!', callback: () => q7 },
+      { text: 'Bei mir wurde Corona diagnostiziert!', callback: () => q7 },
     ],
   ],
   appContext,
