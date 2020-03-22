@@ -82,7 +82,15 @@ export default class Model {
         // Assume p = 1
         setP(infection.userId, 1)
       }
+  
+      // Apply sympthoms
+      const sympthoms = day.filter(e => e.type === EventType.Sympthoms)
 
+      for(const sympthom of sympthoms) {
+        // Increase risk by a lot.
+        combineP(sympthom.userId, 0.5)
+      }
+  
       // Apply high risk travel/comeback
       const highRisks = day.filter(e => e.type === EventType.HighRiskArea)
       const highRiskPrediction = CaseCounts.predict(CaseCounts.highRisk(), datePlusN, Params.alpha)

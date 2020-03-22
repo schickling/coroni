@@ -25,6 +25,21 @@ export class EventIngest {
       }
     })
   }
+  
+  sympthomsEvent(timestamp: Moment = moment()) {
+    this.client.event.create({
+      data: {
+        eventType: EventType.Sympthoms,
+        timestamp: timestamp.format(),
+        user: {
+          connect: { id: this.user.id }
+        },
+        data: '',
+        interaction: null
+      }
+    })
+  }
+
 
 
   diagnosedPositiveEvent(timestamp: Moment = moment()) {
