@@ -36,6 +36,7 @@ const q1 = selectHandler(
   ],
   appContext,
 )
+bot.command('q1', q1)
 
 const q2Yes = locationHandler(
   'Wo ist dein Zuhause oder Stadt?',
@@ -67,6 +68,7 @@ const q3 = selectHandler(
   ],
   appContext,
 )
+bot.command('q3', q3)
 
 const q4 = inputHandler(
   'Wo warst du?',
@@ -75,6 +77,7 @@ const q4 = inputHandler(
   },
   appContext,
 )
+bot.command('q4', q4)
 
 const q5 = selectHandler(
   'Danke für die Info. Wann war der letzte Tag deiner Reise?',
@@ -87,6 +90,7 @@ const q5 = selectHandler(
   ],
   appContext,
 )
+bot.command('q5', q5)
 
 const q6 = selectHandler(
   'Spürst du Krankheitssymptome?',
@@ -102,6 +106,7 @@ const q6 = selectHandler(
   ],
   appContext,
 )
+bot.command('q6', q6)
 
 const q7 = selectHandler(
   'Warst du in den letzten 24h mit größeren Menschenmassen im Kontakt?',
@@ -112,6 +117,7 @@ const q7 = selectHandler(
   ],
   appContext,
 )
+bot.command('q7', q7)
 
 const q8 = selectHandler(
   `\
@@ -136,6 +142,7 @@ Es ist klar, dass du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen
   ],
   appContext,
 )
+bot.command('q8', q8)
 
 const contactQuestion = (
   crewSize: number,
@@ -190,7 +197,7 @@ Und hier nun endlich dein Ergebnis:`)
 bot.start(async ctx => {
   wipeUserSession(ctx, appContext)
   await ctx.reply('Welcome to Coroni 🦠')
-  await q8(ctx)
+  await q1(ctx)
 })
 
 bot.launch()
