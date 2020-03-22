@@ -162,20 +162,35 @@ const contactQuestion = (
   )
 }
 
-const onboardingComplete = (
+const onboardingComplete = async (
   ctx: ContextMessageUpdate,
   crewSize: number,
   collected: number,
   contact: Contact,
-) =>
-  ctx.reply(
-    `[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist deine Crew nun komplett. Onboarding complete. The end.`,
+) => {
+  await ctx.reply(`\
+[${collected}/${crewSize}] Glückwunsch! Mit ${contact.first_name} ist deine Crew nun komplett.
+
+Und hier nun endlich dein Ergebnis:`)
+
+  await ctx.replyWithPhoto('https://i.imgur.com/ceRsYUD.png')
+
+  await ctx.replyWithMarkdown(`\
+🤪 Deine Infektions- wahrscheinlichkeit: **25%**.
+
+👪 Die Wahrscheinlichkeit, dass jemand in deiner Gruppe infiziert ist: **83%**.
+
+👍 Deine Gruppe hat sich nicht vergrößert, super!`)
+
+  await ctx.reply(
+    `Wir werden dich jeden Tag nach einem Update fragen. Am besten funktioniert es, wenn jeder deiner Crew mitmacht.`,
   )
+}
 
 bot.start(async ctx => {
   wipeUserSession(ctx, appContext)
   await ctx.reply('Welcome to Coroni 🦠')
-  await q1(ctx)
+  await q8(ctx)
 })
 
 bot.launch()
