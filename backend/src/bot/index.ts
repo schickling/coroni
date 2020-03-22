@@ -26,17 +26,22 @@ bot.catch((e: any) => {
 
 bot.use(debugMiddleware)
 
-const q1 = selectHandler(
-  'Bist du gerade zu Hause?',
-  [
+const notImplemented = (ctx: ContextMessageUpdate) =>
+  ctx.reply('Game over. Restart with /start')
+
+const start = async (ctx: ContextMessageUpdate) => {
+  await ctx.reply('Welcome to Coroni 🦠')
+  await selectHandler(
+    'Bist du gerade zu Hause?',
     [
-      { text: 'Ja', callback: () => q2Yes },
-      { text: 'Nein', callback: () => () => null },
+      [
+        { text: 'Ja', callback: () => q2Yes },
+        { text: 'Nein', callback: () => notImplemented },
+      ],
     ],
-  ],
-  appContext,
-)
-bot.command('q1', q1)
+    appContext,
+  )(ctx)
+}
 
 const q2Yes = locationHandler(
   'Wo ist dein Zuhause oder Stadt?',
@@ -196,8 +201,7 @@ Und hier nun endlich dein Ergebnis:`)
 
 bot.start(async ctx => {
   wipeUserSession(ctx, appContext)
-  await ctx.reply('Welcome to Coroni 🦠')
-  await q1(ctx)
+  await start(ctx)
 })
 
 bot.launch()
