@@ -77,6 +77,7 @@ export function selectHandler(
 
 export function contactHandler(
   question: string,
+  imageUrl: string | undefined,
   callback: Callback<Contact>,
   appContext: AppContext,
 ): ContextCallback {
@@ -99,7 +100,10 @@ export function contactHandler(
 
       return next && next()
     })
-    return ctx.reply(question)
+    await ctx.reply(question)
+    if (imageUrl) {
+      await ctx.replyWithPhoto(imageUrl)
+    }
   }
 }
 

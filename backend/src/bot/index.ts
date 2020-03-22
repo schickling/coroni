@@ -127,8 +127,11 @@ bot.command('q7', q7)
 
 const q8 = selectHandler(
   `\
-Geschafft! Das waren die Baseline-Informationen. Wie Du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren. Nur so können wir die Ausbreitung des Virus' verhindern.
-Es ist klar, dass Du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen Deine “Crew”. Wie groß ist Deine Crew?`,
+Geschafft! Das waren die Grund-Informationen. Wie Du bestimmt weißt, ist es aktuell wichtig, soziale Kontakte auf ein Minimum zu reduzieren. Nur so können wir die Ausbreitung des Virus' verhindern.
+
+Es ist klar, dass Du bestimmte Menschen trotzdem regelmäßig siehst. Wir nennen diese Gruppe Menschen Deine “Crew”.
+
+Wie groß ist Deine Crew?`,
   [
     [
       { text: '0', callback: () => contactQuestion(0, 0) },
@@ -165,6 +168,7 @@ const contactQuestion = (
       : `[${collected}/${crewSize}] Super, Björn ist nun Teil deiner Crew. Nächster Kontakt bitte.`
   return contactHandler(
     question,
+    collected === 0 ? 'https://i.imgur.com/QcNN7lk.png' : undefined,
     contact => {
       console.log({ contact })
       return contactQuestion(crewSize, collected + 1, contact)
