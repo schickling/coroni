@@ -145,6 +145,19 @@ export default class Model {
       }
     }
 
-    return { userRisk: p, interactions: interactionAgg }
+    const groupRisk: UserDict = { }
+
+    for(const u in p) {
+      let r = 0
+
+      if(interactionAgg[u]) {
+      for(const c in interactionAgg[u])
+        r = combine(r, interactionAgg[u][c])
+      }
+
+      groupRisk[u] = r
+    }
+
+    return { userRisk: p, interactions: interactionAgg, groupRisk }
   }
 }
